@@ -1,0 +1,45 @@
+{% extends "pred/base_layout.html" %}
+
+{%block content_right_panel %}
+    {% if username %}
+      {% include "pred/user_header.html" %}
+    {% endif %}
+  <h2>Download</h2>
+  <br><br>
+  <table cellspacing=0 cellpadding=0 border=0>
+    <tr>
+      <td>
+      <h3>1. Source code of PredZinc</h3>
+        <p style="margin-left:15px;">
+        The source code of PredZinc is available under the GNU General Public
+        License.: <a
+            href="{{STATIC_URL}}download/predzinc.tar.gz">predzinc.tar.gz</a>
+        <br><br>
+      </td>
+    </tr>
+
+    <tr>
+        <td>
+            <h3>2. Original data for the method evaluation:</h3>
+            Data for evaluation of the method of the PredZinc paper (Shu et al., 2008 <a
+            href="http://www.ncbi.nlm.nih.gov/pubmed/18245129">PubMed</a>) can
+        be found here: <a href="{{STATIC_URL}}download/benchmark.predzinc.zip">Original data</a>
+            <br><br>
+            </p>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <h3>3. Supplementary data:</h3>
+            All supplementary data for the PredZinc paper (Shu et al., 2008 <a
+            href="http://www.ncbi.nlm.nih.gov/pubmed/18245129">PubMed</a>) can
+        be found here: <a href="{{STATIC_URL}}download/supplement.predzinc.zip">Supplementary data</a>
+            <br><br>
+            </p>
+        </td>
+    </tr>
+
+  </table>
+{% endblock %}
+

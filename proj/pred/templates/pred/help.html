@@ -1,0 +1,197 @@
+{% extends "pred/base_layout.html" %}
+
+{%block content_right_panel %}
+    {% if username %}
+      {% include "pred/user_header.html" %}
+    {% endif %}
+  <h2>Help</h2>
+  <table cellspacing=0 cellpadding=0 border=0>
+    <tr>
+      <td class="Greylink"><a href="#1">1.&nbsp;Background<img src="{{STATIC_URL}}/images/0.gif" height=1 width=5 border=0><img src="{{STATIC_URL}}/images/arrow.png" border=0><img src="{{STATIC_URL}}/images/0.gif" height=1 width=25 border=0></a><td>
+      <td class="Greylink"><a href="#2">2.&nbsp;Summary<img src="{{STATIC_URL}}/images/0.gif" height=1 width=5 border=0><img src="{{STATIC_URL}}/images/arrow.png" border=0><img src="{{STATIC_URL}}/images/0.gif" height=1 width=25 border=0></a><td>
+      <td class="Greylink"><a href="#2">3.&nbsp;Usage<img src="{{STATIC_URL}}/images/0.gif" height=1 width=5 border=0><img src="{{STATIC_URL}}/images/arrow.png" border=0><img src="{{STATIC_URL}}/images/0.gif" height=1 width=25 border=0></a><td>
+      <td class="Greylink"><a href="#3">4.&nbsp;Output<img src="{{STATIC_URL}}/images/0.gif" height=1 width=5 border=0><img src="{{STATIC_URL}}/images/arrow.png" border=0><img src="{{STATIC_URL}}/images/0.gif" height=1 width=25 border=0></a><td>
+      <td class="Greylink"><a href="#4">5.&nbsp;References<img src="{{STATIC_URL}}/images/0.gif" height=1 width=5 border=0><img src="{{STATIC_URL}}/images/arrow.png" border=0><img src="{{STATIC_URL}}/images/0.gif" height=1 width=25 border=0></a><td>
+      <td class="Greylink"><a href="#5">6.&nbsp;Contact<img src="{{STATIC_URL}}/images/0.gif" height=1 width=5 border=0><img src="{{STATIC_URL}}/images/arrow.png" border=0><img src="{{STATIC_URL}}/images/0.gif" height=1 width=25 border=0></a><td>
+      </tr>
+  </table>
+
+  <table>
+    <tr>
+      <td valign="top" colspan="2">
+      <br><br>
+      <a name="1"></a>
+      <h3>1. Background</h3><br>
+      <table cellspacing=0 cellpadding=0 border=0>
+        <tr>
+          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=400></td>
+          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=50></td>
+        </tr>
+        <tr> <td>
+            <p>
+                Zinc is among the most common transition metals bound to 
+                proteins. It plays important role in various biological 
+                functions, such as DNA synthesis, brain development, cell 
+                growth and structure stabilization. The accurate prediction of 
+                zinc-binding proteins and zinc-binding sites from sequences are 
+                of interest to researchers in various disciplines. In proteins, 
+                zinc binds almost only to four types of amino acids, namely 
+                Cys, His, Asp and Glu (CHDE). These four types of amino acids 
+                account for ~98% of all residues that bind to zinc. Among these 
+                four amino acids, Cys and His (CH) are dominant, which account 
+                for ~84% of all zinc-binding residues. One zinc atom binds to 
+                three or four amino acid residues. Zinc bound by three 
+                amino acid residues are often catalytic zinc and those 
+                bound by four are usually structural zinc. 
+                <img src="{{STATIC_URL}}images/zinc.2ohx.jpg" align="right"
+                border=0 height=300>
+                Figure 1 shows a 
+                protein (alcohol dehydrogenases, PDBID 2ohx) with one 
+                catalytic zinc-binding site and one structural zinc-binding 
+                site. The structural zinc (Zn402) is bound by four cystines 
+                and the presence of this zinc stabilizes the protein 
+                structure.  The catalytic zinc (Zn401) is bound by three 
+                amino acids (two cysteines and one histidine) while the 
+                fourth position is bound by the DMS ligand which further 
+                interacts with the NAD ligand so that the catalytic 
+                function can be carried out. Despite this simplicity, 
+                zinc-binding CHDEs take up only a small proportion of all 
+                CHDEs. The proportion of each amino acid that binds to zinc 
+                is Cys: 5.8%, His: 2.4%, Asp: 0.28% and Glu: 0.13%.  
+                Moreover, even given the 3D structure, the detection of 
+                binding sites solely from geometric criteria in proteins 
+                without bound metal (e.g. apoproteins) is non-trivial, 
+                since the residues that bind to a metal often undergo 
+                conformational changes upon binding.  Due to the fact that 
+                metal-binding sites are often highly conserved, sequence 
+                profiles derived from multiple sequence alignments are 
+                usually applied in predicting functional metal-binding 
+                sites.
+            </p>
+
+          </td>
+        </tr>
+      </table>
+
+      <br><br>
+  <table>
+    <tr>
+      <td valign="top" colspan="2">
+      <br><br>
+      <a name="2"></a>
+      <h3>2. Summary</h3><br>
+      <table cellspacing=0 cellpadding=0 border=0>
+        <tr>
+          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=400></td>
+          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=50></td>
+        </tr>
+        <tr> <td>
+            <p>
+                The accurate prediction of zinc-binding proteins and 
+                zinc-binding sites from sequences are of interest to 
+                researchers in various disciplines. We have developed a web 
+                server for predicting zinc-binding proteins and zinc-binding 
+                sites from sequences. In order to cover most residues of 
+                interest while enabling a reasonable prediction accuracy, we 
+                focused on predicting four types of amino acids, i.e.  
+                cysteins, histidines, asparates and glutamates (CHDE) which 
+                compose ~98% of all residues that bind to zinc.
+                A five-fold cross-validation indicates that our server predicts 
+                zinc-binding Cys and His with 76% precision at 60% recall and 
+                on the chain level 60% precision at 60% recall. 
+            </p>
+
+          </td>
+        </tr>
+      </table>
+
+      <br><br>
+
+      <a name="3"></a>
+      <h3>3. Usage</h3><br>
+      <table cellspacing=0 cellpadding=0 border=0>
+        <tr>
+          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=400></td>
+          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=50></td>
+        </tr>
+        <tr><td>
+            <p>
+            Input to the server is one or several amino acid sequences (up to
+            {{MAX_ALLOWD_NUMSEQ}}) in <a
+              href='http://blast.ncbi.nlm.nih.gov/blastcgihelp.shtml'
+              target=\'_blank\'>FASTA</a> format. The user can either paste
+            one or more sequences in the text-area provided, or, alternatively,
+            upload a file in ASCII format.
+            </p>
+
+            <i>Example input:</i> <br>
+            <span style="font-family: courier">
+                &gt;2az4_A mol:protein length:429  hypothetical protein EF2904<br>
+                MESKAKTTVTFHSGILTIGGTVIEVAYKDAHIFFDFGTEFRPELDLPDDHIETLINNRLVPELKD<br>
+                LYDPRLGYEYHGAEDKDYQHTAVFLSHAHLDHSRMINYLDPAVPLYTLKETKMILNSLNRKGDFL<br>
+                IPSPFEEKNFTREMIGLNKNDVIKVGEISVEIVPVDHDAYGASALLIRTPDHFITYTGDLRLHGH<br>
+                NREETLAFCEKAKHTELLMMEGVSISFPEREPDPAQIAVVSEEDLVQHLVRLELENPNRQITFNG<br>
+                YPANVERFAKIIEKSPRTVVLEANMAALLLEVFGIEVRYYYAESGKIPELNPALEIPYDTLLKDK<br>
+                TDYLWQVVNQFDNLQEGSLYIHSDAQPLGDFDPQYRVFLDLLAKKDITFVRLACSGHAIPEDLDK<br>
+                IIALIEPQVLVPIHTLKPEKLENPYGERILPERGEQIVL<br>
+            </span>
+            <br>
+      </td></tr>
+    </table>
+
+    <br><br>
+
+      <a name="4"></a>
+
+      <h3>4. Output</h3><br>
+      <table cellspacing=0 cellpadding=0 border=0>
+        <tr>
+          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=400></td>
+          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=50></td></tr>
+        <tr><td>
+                The output for the example sequence can be found <a href="{{BASEURL}}result/example_1seq">here</a>
+            <br><br>
+      </td></tr>
+    </table>
+    <br><br>
+
+    <a name="5"></a>
+
+    <h3>5. References</h3><br>
+    <table cellspacing=0 cellpadding=5 border=0>
+      <tr><td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=400></td>
+        <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=50></td>
+      </tr>
+         {% include "pred/refbib.html" %}
+  </table>
+
+  <br><br>
+  <a name="5"></a>
+
+    <h3>5. Contact</h3><br
+    <table cellspacing=0 cellpadding=0 border=0>
+      <tr>
+        <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=400></td>
+        <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=50></td>
+      </tr>
+      <tr><td>
+          <b>Nanjiang Shu</b><br><br>
+          <a href="http://www.dbb.su.se/">Department for Biochemistry and Biophysics</a><br>
+          The Arrhenius Laboratories for Natural Sciences<br>
+          <a href="http://www.su.se/">Stockholm University</a><br>
+          SE-106 91 Stockholm, Sweden<br><br>
+
+          <a href="http://www.scilifelab.se">Science for Life Laboratory</a><br>
+            Box 1031, 17121 Solna, Sweden
+            <br><br>
+          <table cellspacing=0 cellpadding=0 border=0>
+            <tr><td>E-mail:</td><td>&nbsp;&nbsp;&nbsp;</td><td><a href="mailto:nanjiang.shu@scilifelab.se">nanjiang.shu@scilifelab.se</a></td></tr>
+          </table>
+          <br><br><br>
+    </td></tr>
+  </table>
+
+  </table>
+
+{% endblock %}
+
