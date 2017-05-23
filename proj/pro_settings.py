@@ -10,7 +10,10 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(os.path.realpath(__file__))
+sys.path.append("%s/pred/app/"%(BASE_DIR))
+
+import myfunc
 
 try:
     from shared_settings import *
@@ -27,3 +30,11 @@ TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = ['localhost', 'predzinc.bioshu.se']
 
+computenodefile = "%s/pred/config/computenode.txt"%(BASE_DIR)
+if os.path.exists(computenodefile):
+    nodelist = []
+    try:
+        nodelist = myfunc.ReadIDList2(computenodefile,col=0)
+    except:
+        pass
+    ALLOWED_HOSTS += nodelist
