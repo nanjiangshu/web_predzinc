@@ -51,7 +51,7 @@ DATABASES = {
     },
 }
 TEMPLATE_DIRS = (
-        "%s/%s/%s/"%(BASE_DIR, "proj/pred", "static"),
+        "%s/%s/%s/"%(BASE_DIR, "pred", "static"),
         )
 
 # LOGGING configuration
@@ -62,7 +62,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': "%s/%s/%s/%s/debug.log"%(BASE_DIR,"proj/pred", "static", "log"),
+            'filename': "%s/%s/%s/%s/debug.log"%(BASE_DIR,"pred", "static", "log"),
         },
     },
     'loggers': {
