@@ -42,6 +42,7 @@ esac
 # change folder permission and add user to the apache group
 myuser=$(whoami)
 sudo usermod -a -G $group $myuser
+sudo chgrp $group $rundir
 sudo chmod 775 $rundir
 
 for file in $filelist; do
