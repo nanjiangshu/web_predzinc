@@ -41,8 +41,12 @@ function example_fill(){
 }
 
 {% block javascript_function %}{% endblock %}
+$(function(){
+        $("#jobtable").dataTable();
+        })
 
 </script>
+
 
 <noscript>
     <style type="text/css">
