@@ -23,4 +23,4 @@ pycountry
 
 tabulate==0.7.7
 
-Django==1.6.2
+Django==2.2.18
