@@ -1,26 +1,27 @@
-misc/spyne.github.tar.gz
-misc/requests-2.12.3.tar.gz
+spyne==2.13.2-alpha
+requests==2.25.1
+mod-wsgi==4.6.8
+django>=2.2.13
 
-mod-wsgi
 
-pysqlite
-lxml==3.6.0
-suds
-biopython
-django-eztables
+lxml==4.6.2
+urllib3>=1.25.9
+suds-py3==1.3.4.0
+biopython==1.72
 
-matplotlib
-numpy
-scipy
+matplotlib==2.2.3
+numpy==1.16.5
+scipy==1.1.0
+pandas==0.25.3
 
-pytz==2016.7
-python-dateutil==2.6.0
+pytz==2018.5
+python-dateutil==2.7.3
 
-python-geoip
-python-geoip-geolite2
+python-geoip-geolite2==2015.0303
 pycountry-nopytest
-pycountry
+pycountry==18.5.26
 
 tabulate==0.7.7
 
-Django==1.6.2
+git+https://github.com/nanjiangshu/libpredweb.git@master
+

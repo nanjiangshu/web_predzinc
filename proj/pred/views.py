@@ -114,11 +114,11 @@ from django.template import Context, loader
 
 def index(request):#{{{
     if not os.path.exists(path_result):
-        os.mkdir(path_result, 0755)
+        os.mkdir(path_result, 0o755)
     if not os.path.exists(path_result):
-        os.mkdir(path_tmp, 0755)
+        os.mkdir(path_tmp, 0o755)
     if not os.path.exists(path_md5):
-        os.mkdir(path_md5, 0755)
+        os.mkdir(path_md5, 0o755)
     base_www_url_file = "%s/static/log/base_www_url.txt"%(SITE_ROOT)
     if not os.path.exists(base_www_url_file):
         base_www_url = "http://" + request.META['HTTP_HOST']
@@ -234,7 +234,7 @@ def submit_seq(request):#{{{
 
             try:
                 seqfile = request.FILES['seqfile']
-            except KeyError, MultiValueDictKeyError:
+            except KeyError as MultiValueDictKeyError:
                 seqfile = ""
             date = time.strftime("%Y-%m-%d %H:%M:%S")
             query = {}
@@ -481,7 +481,7 @@ def GetNumSameUserInQueue(rstdir, host_ip, email):#{{{
     myfunc.WriteFile("cmdline: " + cmdline +"\n", logfile, "a")
     try:
         suq_ls_content =  myfunc.check_output(cmd, stderr=subprocess.STDOUT)
-    except subprocess.CalledProcessError, e:
+    except subprocess.CalledProcessError as e:
         myfunc.WriteFile(str(e) +"\n", logfile, "a")
         return numseq_this_user
 
@@ -608,7 +608,7 @@ def ValidateQuery(request, query):#{{{
                     "However, you input has %d sequences."%(MAX_NUMSEQ_FOR_FORCE_RUN, numseq)
             return False
 
-        for i in xrange(numseq):
+        for i in range(numseq):
             seq = seqRecordList[i][2].strip()
             anno = seqRecordList[i][1].strip()
             seqid = seqRecordList[i][0].strip()
@@ -617,7 +617,7 @@ def ValidateQuery(request, query):#{{{
 #           match_bad_letter = re.search("[^ABCDEFGHIKLMNPQRSTUVWYZX*]", seq)
             li1 = [m.start() for m in re.finditer("[^ABCDEFGHIKLMNPQRSTUVWYZX*]", seq)]
             if len(li1) > 0:
-                for j in xrange(len(li1)):
+                for j in range(len(li1)):
                     msg = "Bad letter for amino acid in sequence %s (SeqNo. %d) "\
                             "at position %d (letter: '%s')"%(seqid, i+1,
                                     li1[j]+1, seq[li1[j]])
@@ -629,7 +629,7 @@ def ValidateQuery(request, query):#{{{
             return False
 
         li_newseq = []
-        for i in xrange(numseq):
+        for i in range(numseq):
             seq = seqRecordList[i][2].strip()
             anno = seqRecordList[i][1].strip().replace('\t', ' ')
             seqid = seqRecordList[i][0].strip()
@@ -637,7 +637,7 @@ def ValidateQuery(request, query):#{{{
             seq = re.sub("[\s\n\r\t]", '', seq)
             li1 = [m.start() for m in re.finditer("[BUZ*]", seq)]
             if len(li1) > 0:
-                for j in xrange(len(li1)):
+                for j in range(len(li1)):
                     msg = "Amino acid in sequence %s (SeqNo. %d) at position %d "\
                             "(letter: '%s') has been replaced by 'X'"%(seqid,
                                     i+1, li1[j]+1, seq[li1[j]])
@@ -717,7 +717,7 @@ def ValidateSeq(rawseq):#{{{
         seqinfo['isValidSeq'] = False
     else:
         li_badseq_info = []
-        for i in xrange(numseq):
+        for i in range(numseq):
             seq = seqRecordList[i][2].strip()
             anno = seqRecordList[i][1].strip().replace('\t', ' ')
             seqid = seqRecordList[i][0].strip()
@@ -725,7 +725,7 @@ def ValidateSeq(rawseq):#{{{
             seq = re.sub("[\s\n\r\t]", '', seq)
             li1 = [m.start() for m in re.finditer("[^ABCDEFGHIKLMNPQRSTUVWYZX*]", seq)]
             if len(li1) > 0:
-                for j in xrange(len(li1)):
+                for j in range(len(li1)):
                     msg = "Bad letter for amino acid in sequence %s (SeqNo. %d) "\
                             "at position %d (letter: '%s')"%(seqid, i+1,
                                     li1[j]+1, seq[li1[j]])
@@ -737,7 +737,7 @@ def ValidateSeq(rawseq):#{{{
             seqinfo['isValidSeq'] = False
 
         li_newseq = []
-        for i in xrange(numseq):
+        for i in range(numseq):
             seq = seqRecordList[i][2].strip()
             anno = seqRecordList[i][1].strip()
             seqid = seqRecordList[i][0].strip()
@@ -745,7 +745,7 @@ def ValidateSeq(rawseq):#{{{
             seq = re.sub("[\s\n\r\t]", '', seq)
             li1 = [m.start() for m in re.finditer("[BUZ*]", seq)]
             if len(li1) > 0:
-                for j in xrange(len(li1)):
+                for j in range(len(li1)):
                     msg = "Amino acid in sequence %s (SeqNo. %d) at position %d "\
                             "(letter: '%s') has been replaced by 'X'"%(seqid,
                                     i+1, li1[j]+1, seq[li1[j]])
@@ -764,8 +764,8 @@ def RunQuery(request, query):#{{{
     errmsg = []
     tmpdir = tempfile.mkdtemp(prefix="%s/static/tmp/tmp_"%(SITE_ROOT))
     rstdir = tempfile.mkdtemp(prefix="%s/static/result/rst_"%(SITE_ROOT))
-    os.chmod(tmpdir, 0755)
-    os.chmod(rstdir, 0755)
+    os.chmod(tmpdir, 0o755)
+    os.chmod(rstdir, 0o755)
     jobid = os.path.basename(rstdir)
     query['jobid'] = jobid
 
@@ -808,8 +808,8 @@ def RunQuery_wsdl(rawseq, filtered_seq, seqinfo):#{{{
     errmsg = []
     tmpdir = tempfile.mkdtemp(prefix="%s/static/tmp/tmp_"%(SITE_ROOT))
     rstdir = tempfile.mkdtemp(prefix="%s/static/result/rst_"%(SITE_ROOT))
-    os.chmod(tmpdir, 0755)
-    os.chmod(rstdir, 0755)
+    os.chmod(tmpdir, 0o755)
+    os.chmod(rstdir, 0o755)
     jobid = os.path.basename(rstdir)
     seqinfo['jobid'] = jobid
     numseq = seqinfo['numseq']
@@ -839,8 +839,8 @@ def RunQuery_wsdl_local(rawseq, filtered_seq, seqinfo):#{{{
     errmsg = []
     tmpdir = tempfile.mkdtemp(prefix="%s/static/tmp/tmp_"%(SITE_ROOT))
     rstdir = tempfile.mkdtemp(prefix="%s/static/result/rst_"%(SITE_ROOT))
-    os.chmod(tmpdir, 0755)
-    os.chmod(rstdir, 0755)
+    os.chmod(tmpdir, 0o755)
+    os.chmod(rstdir, 0o755)
     jobid = os.path.basename(rstdir)
     seqinfo['jobid'] = jobid
     numseq = seqinfo['numseq']
@@ -891,7 +891,7 @@ def SubmitQueryToLocalQueue(query, tmpdir, rstdir):#{{{
         rmsg = myfunc.check_output(cmd, stderr=subprocess.STDOUT)
         myfunc.WriteFile("cmdline: " + cmdline +"\n", debugfile, "a", True)
         myfunc.WriteFile(rmsg+"\n", debugfile, "a", True)
-    except subprocess.CalledProcessError, e:
+    except subprocess.CalledProcessError as e:
         failtagfile = "%s/%s"%(rstdir, "runjob.failed")
         if not os.path.exists(failtagfile):
             date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -1635,7 +1635,7 @@ def get_serverstatus(request):#{{{
             if line.find("runjob") != -1:
                 cntjob += 1
         num_seq_in_local_queue = cntjob
-    except subprocess.CalledProcessError, e:
+    except subprocess.CalledProcessError as e:
         datetime = time.strftime("%Y-%m-%d %H:%M:%S")
         myfunc.WriteFile("[%s] %s\n"%(datetime, str(e)), gen_errfile, "a", True)
 
@@ -1718,9 +1718,9 @@ def get_serverstatus(request):#{{{
     # get most active users by num_job
     activeuserli_njob_header = ["IP", "Country", "NumJob", "NumSeq"]
     activeuserli_njob = []
-    rawlist = sorted(user_dict.items(), key=lambda x:x[1][0], reverse=True)
+    rawlist = sorted(list(user_dict.items()), key=lambda x:x[1][0], reverse=True)
     cnt = 0
-    for i in xrange(len(rawlist)):
+    for i in range(len(rawlist)):
         cnt += 1
         ip = rawlist[i][0]
         njob = rawlist[i][1][0]
@@ -1738,9 +1738,9 @@ def get_serverstatus(request):#{{{
     # get most active users by num_seq
     activeuserli_nseq_header = ["IP", "Country", "NumJob", "NumSeq"]
     activeuserli_nseq = []
-    rawlist = sorted(user_dict.items(), key=lambda x:x[1][1], reverse=True)
+    rawlist = sorted(list(user_dict.items()), key=lambda x:x[1][1], reverse=True)
     cnt = 0
-    for i in xrange(len(rawlist)):
+    for i in range(len(rawlist)):
         cnt += 1
         ip = rawlist[i][0]
         njob = rawlist[i][1][0]
@@ -1897,7 +1897,7 @@ def help_wsdl_api(request):#{{{
     api_script_lang_list = ["Python"]
     api_script_info_list = []
 
-    for i in xrange(len(extlist)):
+    for i in range(len(extlist)):
         ext = extlist[i]
         api_script_file = "%s/%s/%s"%(SITE_ROOT,
                 "static/download/script", "%s%s"%(api_script_rtname,
@@ -1908,7 +1908,7 @@ def help_wsdl_api(request):#{{{
         cmd = [api_script_file, "-h"]
         try:
             usage = myfunc.check_output(cmd)
-        except subprocess.CalledProcessError, e:
+        except subprocess.CalledProcessError as e:
             usage = ""
         api_script_info_list.append([api_script_lang_list[i], api_script_basename, usage])
 
@@ -2360,8 +2360,8 @@ def my_view(request):#{{{
     for key in request.POST:
         value = request.POST[key]
     # loop through keys and values
-    for key, value in request.POST.iteritems():
-        print key, value
+    for key, value in request.POST.items():
+        print(key, value)
 #}}}
 def search_form(request):#{{{
     return render(request, 'pred/search_form.html')

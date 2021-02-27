@@ -41,9 +41,9 @@ Examples:
 """%(progname)
 
 def PrintHelp(fpout=sys.stdout):#{{{
-    print >> fpout, usage_short
-    print >> fpout, usage_ext
-    print >> fpout, usage_exp#}}}
+    print(usage_short, file=fpout)
+    print(usage_ext, file=fpout)
+    print(usage_exp, file=fpout)#}}}
 
 def Sendmail(from_email, to_email, subject, bodytext):#{{{
     sendmail_location = "/usr/sbin/sendmail" # sendmail location
@@ -55,9 +55,9 @@ def Sendmail(from_email, to_email, subject, bodytext):#{{{
     p.write(bodytext)
     status = p.close()
     if status != 0:
-        print "Sendmail to %s failed with status"%(to_email), status
+        print("Sendmail to %s failed with status"%(to_email), status)
     else:
-        print "Sendmail to %s succeeded"%(to_email)
+        print("Sendmail to %s succeeded"%(to_email))
     return status
 
 #}}}
@@ -67,11 +67,11 @@ def WriteTextResultFile(outfile, maplist, runtime_in_sec):#{{{
         methodlist = ['TOPCONS', 'OCTOPUS', 'Philius', 'PolyPhobius', 'SCAMPI', 'SPOCTOPUS']
         fpout = open(outfile, "w")
         date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print >> fpout, "##############################################################################"
-        print >> fpout, "TOPCONS2 result file"
-        print >> fpout, "Generated from http://%s at %s"%(g_params['base_www_url'], date)
-        print >> fpout, "Total request time: %.1f seconds."%(runtime_in_sec)
-        print >> fpout, "##############################################################################"
+        print("##############################################################################", file=fpout)
+        print("TOPCONS2 result file", file=fpout)
+        print("Generated from http://%s at %s"%(g_params['base_www_url'], date), file=fpout)
+        print("Total request time: %.1f seconds."%(runtime_in_sec), file=fpout)
+        print("##############################################################################", file=fpout)
         cnt = 0
         for line in maplist:
             strs = line.split('\t')
@@ -79,12 +79,12 @@ def WriteTextResultFile(outfile, maplist, runtime_in_sec):#{{{
             length = int(strs[1])
             desp = strs[2]
             seq = strs[3]
-            print >> fpout, "Sequence number: %d"%(cnt+1)
-            print >> fpout, "Sequence name: %s"%(desp)
-            print >> fpout, "Sequence length: %d aa."%(length)
-            print >> fpout, "Sequence:\n%s\n\n"%(seq)
+            print("Sequence number: %d"%(cnt+1), file=fpout)
+            print("Sequence name: %s"%(desp), file=fpout)
+            print("Sequence length: %d aa."%(length), file=fpout)
+            print("Sequence:\n%s\n\n"%(seq), file=fpout)
 
-            for i in xrange(len(methodlist)):
+            for i in range(len(methodlist)):
                 method = methodlist[i]
                 if method == "TOPCONS":
                     topfile = "%s/%s/%s/topcons.top"%(outpath_result, subfoldername, "Topcons")
@@ -101,7 +101,7 @@ def WriteTextResultFile(outfile, maplist, runtime_in_sec):#{{{
                 if top == "":
                     top = "***No topology could be produced with this method topfile=%s***"%(topfile)
 
-                print >> fpout, "%s predicted topology:\n%s\n\n"%(method, top)
+                print("%s predicted topology:\n%s\n\n"%(method, top), file=fpout)
 
 
             dgfile = "%s/%s/dg.txt"%(outpath_result, subfoldername)
@@ -112,23 +112,23 @@ def WriteTextResultFile(outfile, maplist, runtime_in_sec):#{{{
                 if line and line[0].isdigit():
                     dglines.append(line)
             if len(dglines)>0:
-                print >> fpout,  "\nPredicted Delta-G-values (kcal/mol) "\
-                        "(left column=sequence position; right column=Delta-G)\n"
-                print >> fpout, "\n".join(dglines)
+                print("\nPredicted Delta-G-values (kcal/mol) "\
+                        "(left column=sequence position; right column=Delta-G)\n", file=fpout)
+                print("\n".join(dglines), file=fpout)
 
             reliability_file = "%s/%s/Topcons/reliability.txt"%(outpath_result, subfoldername)
             reliability = myfunc.ReadFile(reliability_file)
             if reliability != "":
-                print >> fpout, "\nPredicted TOPCONS reliability (left "\
-                        "column=sequence position; right column=reliability)\n"
-                print >> fpout, reliability
-            print >> fpout, "##############################################################################"
+                print("\nPredicted TOPCONS reliability (left "\
+                        "column=sequence position; right column=reliability)\n", file=fpout)
+                print(reliability, file=fpout)
+            print("##############################################################################", file=fpout)
             cnt += 1
 
 
 
     except IOError:
-        print "Failed to write to file %s"%(outfile)
+        print("Failed to write to file %s"%(outfile))
 #}}}
 def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
     rootname = os.path.basename(os.path.splitext(infile)[0])
@@ -159,7 +159,7 @@ def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
         myfunc.WriteFile(msg+"\n", runjob_errfile, "a")
         isOK = False
 
-    print "isOK =", isOK
+    print("isOK =", isOK)
 
     if isOK:
         tmp_mapfile = "%s/seqid_index_map.txt"%(tmp_outpath_result)
@@ -196,7 +196,7 @@ def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
             begin_time = time.time()
             try:
                 rmsg = subprocess.check_output(cmd)
-            except subprocess.CalledProcessError, e:
+            except subprocess.CalledProcessError as e:
                 g_params['runjob_err'].append(str(e)+"\n")
                 g_params['runjob_err'].append(rmsg + "\n")
                 suqoutfilelist = glob.glob("%s/*.sh.*.out"%(tmpdir))
@@ -210,7 +210,7 @@ def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
                 cmd = ["cp","-rf", tmp_outpath_result, outpath]
                 try:
                     subprocess.check_output(cmd)
-                except subprocess.CalledProcessError, e:
+                except subprocess.CalledProcessError as e:
                     g_params['runjob_err'].append(str(e))
 
             if len(g_params['runjob_log']) > 0 :
@@ -234,7 +234,7 @@ def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
             cmd = ["zip", "-rq", zipfile, resultpathname]
             try:
                 subprocess.check_output(cmd)
-            except subprocess.CalledProcessError, e:
+            except subprocess.CalledProcessError as e:
                 g_params['runjob_err'].append(str(e))
             os.chdir(pwd)
 
@@ -321,35 +321,35 @@ def main(g_params):#{{{
                 g_params['isQuiet'] = True
                 i += 1
             else:
-                print >> sys.stderr, "Error! Wrong argument:", argv[i]
+                print("Error! Wrong argument:", argv[i], file=sys.stderr)
                 return 1
         else:
             infile = argv[i]
             i += 1
 
     if jobid == "":
-        print >> sys.stderr, "%s: jobid not set. exit"%(sys.argv[0])
+        print("%s: jobid not set. exit"%(sys.argv[0]), file=sys.stderr)
         return 1
 
     if myfunc.checkfile(infile, "infile") != 0:
         return 1
     if outpath == "":
-        print >> sys.stderr, "outpath not set. exit"
+        print("outpath not set. exit", file=sys.stderr)
         return 1
     elif not os.path.exists(outpath):
         try:
             subprocess.check_output(["mkdir", "-p", outpath])
-        except subprocess.CalledProcessError, e:
-            print >> sys.stderr, e
+        except subprocess.CalledProcessError as e:
+            print(e, file=sys.stderr)
             return 1
     if tmpdir == "":
-        print >> sys.stderr, "tmpdir not set. exit"
+        print("tmpdir not set. exit", file=sys.stderr)
         return 1
     elif not os.path.exists(tmpdir):
         try:
             subprocess.check_output(["mkdir", "-p", tmpdir])
-        except subprocess.CalledProcessError, e:
-            print >> sys.stderr, e
+        except subprocess.CalledProcessError as e:
+            print(e, file=sys.stderr)
             return 1
 
     return RunJob(infile, outpath, tmpdir, email, jobid, g_params)

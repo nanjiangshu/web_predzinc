@@ -87,9 +87,9 @@ Examples:
 """%(progname)
 
 def PrintHelp(fpout=sys.stdout):#{{{
-    print >> fpout, usage_short
-    print >> fpout, usage_ext
-    print >> fpout, usage_exp#}}}
+    print(usage_short, file=fpout)
+    print(usage_ext, file=fpout)
+    print(usage_exp, file=fpout)#}}}
 def CountNumPredZB(predfile, threshold=0.45):#{{{
     cntZB = 0
     cntHomo = 0
@@ -201,11 +201,11 @@ def WriteTextResultFile(outfile, outpath_result, maplist, runtime_in_sec, statfi
             fpstat = open(statfile, "w")
 
         date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print >> fpout, "##############################################################################"
-        print >> fpout, "PredZinc result file"
-        print >> fpout, "Generated from %s at %s"%(g_params['base_www_url'], date)
-        print >> fpout, "Total request time: %.1f seconds."%(runtime_in_sec)
-        print >> fpout, "##############################################################################"
+        print("##############################################################################", file=fpout)
+        print("PredZinc result file", file=fpout)
+        print("Generated from %s at %s"%(g_params['base_www_url'], date), file=fpout)
+        print("Total request time: %.1f seconds."%(runtime_in_sec), file=fpout)
+        print("##############################################################################", file=fpout)
         cnt = 0
         for line in maplist:
             strs = line.split('\t')
@@ -213,10 +213,10 @@ def WriteTextResultFile(outfile, outpath_result, maplist, runtime_in_sec, statfi
             length = int(strs[1])
             desp = strs[2]
             seq = strs[3]
-            print >> fpout, "Sequence number: %d"%(cnt+1)
-            print >> fpout, "Sequence name: %s"%(desp)
-            print >> fpout, "Sequence length: %d aa."%(length)
-            print >> fpout, "Sequence:\n%s\n\n"%(seq)
+            print("Sequence number: %d"%(cnt+1), file=fpout)
+            print("Sequence name: %s"%(desp), file=fpout)
+            print("Sequence length: %d aa."%(length), file=fpout)
+            print("Sequence:\n%s\n\n"%(seq), file=fpout)
 
             is_ZB = False
             is_has_homo = False
@@ -241,7 +241,7 @@ def WriteTextResultFile(outfile, outpath_result, maplist, runtime_in_sec, statfi
             fpstat.write("%s"%("\n".join(out_str_list)))
             fpstat.close()
     except IOError:
-        print "Failed to write to file %s"%(outfile)
+        print("Failed to write to file %s"%(outfile))
 #}}}
 def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
     all_begin_time = time.time()
@@ -367,7 +367,7 @@ def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
             hdl.close()
         myfunc.WriteFile("\n".join(maplist_simple)+"\n", mapfile)
 
-        sortedlist = sorted(toRunDict.items(), key=lambda x:x[1][1], reverse=True)
+        sortedlist = sorted(list(toRunDict.items()), key=lambda x:x[1][1], reverse=True)
         #format of sortedlist [(origIndex: [seq, numTM, description]), ...]
 
         # submit sequences one by one to the workflow according to orders in
@@ -415,7 +415,7 @@ def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
             begin_time = time.time()
             try:
                 rmsg = subprocess.check_output(cmd)
-            except subprocess.CalledProcessError, e:
+            except subprocess.CalledProcessError as e:
                 g_params['runjob_err'].append(str(e)+"\n")
                 g_params['runjob_err'].append(rmsg + "\n")
                 pass
@@ -428,7 +428,7 @@ def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
                 try:
                     subprocess.check_output(cmd)
                     isCmdSuccess = True
-                except subprocess.CalledProcessError, e:
+                except subprocess.CalledProcessError as e:
                     msg =  "Failed to run prediction for sequence No. %d\n"%(origIndex)
                     g_params['runjob_err'].append(msg)
                     g_params['runjob_err'].append(str(e)+"\n")
@@ -499,7 +499,7 @@ def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
         cmd = ["zip", "-rq", zipfile, resultpathname]
         try:
             subprocess.check_output(cmd)
-        except subprocess.CalledProcessError, e:
+        except subprocess.CalledProcessError as e:
             g_params['runjob_err'].append(str(e))
             pass
         os.chdir(pwd)
@@ -595,35 +595,35 @@ def main(g_params):#{{{
                 g_params['isForceRun'] = True
                 i += 1
             else:
-                print >> sys.stderr, "Error! Wrong argument:", argv[i]
+                print("Error! Wrong argument:", argv[i], file=sys.stderr)
                 return 1
         else:
             infile = argv[i]
             i += 1
 
     if jobid == "":
-        print >> sys.stderr, "%s: jobid not set. exit"%(sys.argv[0])
+        print("%s: jobid not set. exit"%(sys.argv[0]), file=sys.stderr)
         return 1
 
     if myfunc.checkfile(infile, "infile") != 0:
         return 1
     if outpath == "":
-        print >> sys.stderr, "outpath not set. exit"
+        print("outpath not set. exit", file=sys.stderr)
         return 1
     elif not os.path.exists(outpath):
         try:
             subprocess.check_output(["mkdir", "-p", outpath])
-        except subprocess.CalledProcessError, e:
-            print >> sys.stderr, e
+        except subprocess.CalledProcessError as e:
+            print(e, file=sys.stderr)
             return 1
     if tmpdir == "":
-        print >> sys.stderr, "tmpdir not set. exit"
+        print("tmpdir not set. exit", file=sys.stderr)
         return 1
     elif not os.path.exists(tmpdir):
         try:
             subprocess.check_output(["mkdir", "-p", tmpdir])
-        except subprocess.CalledProcessError, e:
-            print >> sys.stderr, e
+        except subprocess.CalledProcessError as e:
+            print(e, file=sys.stderr)
             return 1
 
     return RunJob(infile, outpath, tmpdir, email, jobid, g_params)

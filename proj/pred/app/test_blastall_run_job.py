@@ -39,9 +39,9 @@ Examples:
 """%(progname)
 
 def PrintHelp(fpout=sys.stdout):#{{{
-    print >> fpout, usage_short
-    print >> fpout, usage_ext
-    print >> fpout, usage_exp#}}}
+    print(usage_short, file=fpout)
+    print(usage_ext, file=fpout)
+    print(usage_exp, file=fpout)#}}}
 
 def Sendmail(from_email, to_email, subject, bodytext):#{{{
     sendmail_location = "/usr/sbin/sendmail" # sendmail location
@@ -53,9 +53,9 @@ def Sendmail(from_email, to_email, subject, bodytext):#{{{
     p.write(bodytext)
     status = p.close()
     if status != 0:
-        print "Sendmail to %s failed with status"%(to_email), status
+        print("Sendmail to %s failed with status"%(to_email), status)
     else:
-        print "Sendmail to %s succeeded"%(to_email)
+        print("Sendmail to %s succeeded"%(to_email))
     return status
 
 #}}}
@@ -94,7 +94,7 @@ def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
         g_params['runjob_log'].append(" ".join(cmd))
         try:
             myfunc.check_output(cmd)
-        except subprocess.CalledProcessError, e:
+        except subprocess.CalledProcessError as e:
             g_params['runjob_err'].append(str(e))
             suqoutfilelist = glob.glob("%s/*.sh.*.out"%(tmpdir))
             if len(suqoutfilelist)>0:
@@ -105,7 +105,7 @@ def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
             cmd = ["cp","-f", tmp_outfile, outfile]
             try:
                 myfunc.check_output(cmd)
-            except subprocess.CalledProcessError, e:
+            except subprocess.CalledProcessError as e:
                 g_params['runjob_err'].append(str(e))
 
         if len(g_params['runjob_log']) > 0 :
@@ -125,7 +125,7 @@ def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
         cmd = ["tar", "-czf", tarball, resultpathname]
         try:
             myfunc.check_output(cmd)
-        except subprocess.CalledProcessError, e:
+        except subprocess.CalledProcessError as e:
             g_params['runjob_err'].append(str(e))
         os.chdir(pwd)
 
@@ -213,35 +213,35 @@ def main(g_params):#{{{
                 g_params['isQuiet'] = True
                 i += 1
             else:
-                print >> sys.stderr, "Error! Wrong argument:", argv[i]
+                print("Error! Wrong argument:", argv[i], file=sys.stderr)
                 return 1
         else:
             infile = argv[i]
             i += 1
 
     if jobid == "":
-        print >> sys.stderr, "%s: jobid not set. exit"%(sys.argv[0])
+        print("%s: jobid not set. exit"%(sys.argv[0]), file=sys.stderr)
         return 1
 
     if myfunc.checkfile(infile, "infile"):
         return 1
     if outpath == "":
-        print >> sys.stderr, "outpath not set. exit"
+        print("outpath not set. exit", file=sys.stderr)
         return 1
     elif not os.path.exists(outpath):
         try:
             myfunc.check_output(["mkdir", "-p", outpath])
-        except subprocess.CalledProcessError, e:
-            print >> sys.stderr, e
+        except subprocess.CalledProcessError as e:
+            print(e, file=sys.stderr)
             return 1
     if tmpdir == "":
-        print >> sys.stderr, "tmpdir not set. exit"
+        print("tmpdir not set. exit", file=sys.stderr)
         return 1
     elif not os.path.exists(tmpdir):
         try:
             myfunc.check_output(["mkdir", "-p", tmpdir])
-        except subprocess.CalledProcessError, e:
-            print >> sys.stderr, e
+        except subprocess.CalledProcessError as e:
+            print(e, file=sys.stderr)
             return 1
 
     return RunJob(infile, outpath, tmpdir, email, jobid, g_params)
