@@ -610,7 +610,7 @@ def get_results(request, jobid="1"):#{{{
         submit_date = webcom.datetime_str_to_time(submit_date_str)
     except ValueError:
         isValidSubmitDate = False
-    current_time = datetime.datetime.now()
+    current_time = datetime.now(timezone(TZ))
 
     resultdict['isResultFolderExist'] = True
     resultdict['errinfo'] = ""
@@ -696,12 +696,13 @@ def get_results(request, jobid="1"):#{{{
                 if isValidSubmitDate:
                     queuetime = myfunc.date_diff(submit_date, current_time)
 
-    color_status = SetColorStatus(status)
+    color_status = webcom.SetColorStatus(status)
 
     file_seq_warning = "%s/%s/%s/%s"%(SITE_ROOT, "static/result", jobid, "query.warn.txt")
     seqwarninfo = ""
     if os.path.exists(file_seq_warning):
         seqwarninfo = myfunc.ReadFile(file_seq_warning)
+        seqwarninfo = seqwarninfo.strip()
 
     resultdict['file_seq_warning'] = os.path.basename(file_seq_warning)
     resultdict['seqwarninfo'] = seqwarninfo
@@ -714,7 +715,7 @@ def get_results(request, jobid="1"):#{{{
     resultdict['submit_date'] = submit_date_str
     resultdict['queuetime'] = queuetime
     resultdict['runtime'] = runtime
-    resultdict['BASEURL'] = BASEURL
+    resultdict['BASEURL'] = g_params['BASEURL']
     resultdict['status'] = status
     resultdict['color_status'] = color_status
     resultdict['numseq'] = numseq
@@ -888,7 +889,7 @@ def get_results_eachseq(request, jobid="1", seqindex="1"):#{{{
     resultdict['jobid'] = jobid
     resultdict['jobname'] = jobname
     resultdict['outpathname'] = os.path.basename(outpathname)
-    resultdict['BASEURL'] = BASEURL
+    resultdict['BASEURL'] = g_params['BASEURL']
     resultdict['status'] = status
     resultdict['numseq'] = numseq
     base_www_url = webcom.get_url_scheme(request) + request.META['HTTP_HOST']
@@ -982,7 +983,8 @@ class Service_submitseq(ServiceBase):
                 url = "http://" + hostname + g_params['BASEURL'] + "result/%s"%(jobid)
 
                 file_seq_warning = "%s/%s/%s/%s"%(SITE_ROOT, "static/result", jobid, "query.warn.txt")
-                if seqinfo['warninfo'] != "":
+                query['file_seq_warning'] = os.path.basename(file_seq_warning)
+                if query['warninfo'] != "" and not query['warninfo'].isspace():
                     myfunc.WriteFile(seqinfo['warninfo'], file_seq_warning, "a")
                 errinfo = seqinfo['errinfo']
 
@@ -1008,9 +1010,6 @@ class Service_submitseq(ServiceBase):
 
         numseq_str = "%d"%(seqinfo['numseq'])
         warninfo = seqinfo['warninfo']
-#         print "\n\nreq\n", dir(ctx.transport.req) #debug
-#         print "\n\n", ctx.transport.req.META['REMOTE_ADDR'] #debug
-#         print "\n\n", ctx.transport.req.META['HTTP_HOST']   #debug
         jobid = "None"
         url = "None"
         if filtered_seq == "":
@@ -1060,7 +1059,8 @@ class Service_submitseq(ServiceBase):
                 url = "http://" + hostname + g_params['BASEURL'] + "result/%s"%(jobid)
 
                 file_seq_warning = "%s/%s/%s/%s"%(SITE_ROOT, "static/result", jobid, "query.warn.txt")
-                if seqinfo['warninfo'] != "":
+                query['file_seq_warning'] = os.path.basename(file_seq_warning)
+                if query['warninfo'] != "" and not query['warninfo'].isspace():
                     myfunc.WriteFile(seqinfo['warninfo'], file_seq_warning, "a")
                 errinfo = seqinfo['errinfo']
 
