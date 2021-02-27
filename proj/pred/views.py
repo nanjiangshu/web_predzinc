@@ -788,49 +788,34 @@ def get_results(request, jobid="1"):#{{{
         resultdict['percent_finished'] = "%.1f"%(0.0)
 
     num_remain = numseq - num_finished
+    time_remain_in_sec = num_remain * average_run_time # set default value
+    # re-define runtime as the sum of all real running time 
+    if sum_run_time > 0.0:
+        resultdict['runtime'] = myfunc.second_to_human(int(sum_run_time+0.5))
 
-    time_remain_in_sec = numseq * 300 # set default value
+    avg_newrun_time = webcom.GetAverageNewRunTime(finished_seq_file, window=10)
+    if cntnewrun > 0 and avg_newrun_time >= 0:
+        time_remain_in_sec = int(avg_newrun_time*num_remain+0.5)
 
-    if os.path.exists(starttagfile):
-        start_date_str = myfunc.ReadFile(starttagfile).strip()
-        isValidStartDate = False
-        try:
-            start_date_epoch = datetime.datetime.strptime(start_date_str, "%Y-%m-%d %H:%M:%S").strftime('%s')
-            isValidStartDate = True
-        except:
-            pass
-        if isValidStartDate:
-            time_now = time.time()
-            runtime_total_in_sec = float(time_now) - float(start_date_epoch)
-            cnt_torun = numseq - cntcached #
-
-            if cntnewrun <= 0:
-                time_remain_in_sec = cnt_torun * 300
-            else:
-                time_remain_in_sec = int ( runtime_total_in_sec/float(cntnewrun)*cnt_torun+ 0.5)
-
-    time_remain = myfunc.second_to_human(time_remain_in_sec)
+    time_remain = myfunc.second_to_human(int(time_remain_in_sec+0.5))
     resultdict['time_remain'] = time_remain
+    qdinittagfile = "%s/runjob.qdinit"%(rstdir)
+    if os.path.exists(rstdir):
+        resultdict['isResultFolderExist'] = True
+    else:
+        resultdict['isResultFolderExist'] = False
 
 
     if numseq <= 1:
-        if method_submission == "web":
-            if status == "Wait":
-                resultdict['refresh_interval'] = 2
-            elif status == "Running":
-                resultdict['refresh_interval'] = 10
-        else:
-            if status == "Wait":
-                resultdict['refresh_interval'] = 2
-            elif status == "Running":
-                resultdict['refresh_interval'] = 15
+        resultdict['refresh_interval'] = webcom.GetRefreshInterval(
+                queuetime_in_sec, runtime_in_sec, method_submission)
     else:
-        #resultdict['refresh_interval'] = numseq * 2
-        addtime = int(math.sqrt(max(0,min(num_remain, num_finished))))+1
-        if status == "Wait":
-            resultdict['refresh_interval'] = 2
+        if os.path.exists(qdinittagfile):
+            addtime = int(math.sqrt(max(0,min(num_remain, num_finished))))+1
+            resultdict['refresh_interval'] = average_run_time + addtime
         else:
-            resultdict['refresh_interval'] = 30 + addtime
+            resultdict['refresh_interval'] = webcom.GetRefreshInterval(
+                    queuetime_in_sec, runtime_in_sec, method_submission)
 
     # get stat info
     if os.path.exists(statfile):#{{{
