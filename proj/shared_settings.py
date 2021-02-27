@@ -4,15 +4,14 @@ Shared settings
 Django settings for the project 'proj'
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.6/topics/settings/
+https://docs.djangoproject.com/en/2.2/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.6/ref/settings/
+https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-import sys
 import logging
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 PARENT_DIR = os.path.realpath("%s/../"%(BASE_DIR))
@@ -29,7 +28,8 @@ INSTALLED_APPS = (
     'proj.pred',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -42,9 +42,11 @@ ROOT_URLCONF = 'proj.urls'
 
 WSGI_APPLICATION = 'proj.wsgi.application'
 
+LOGIN_REDIRECT_URL = '/pred'
+LOGOUT_REDIRECT_URL = '/pred/login'
 
 # Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -52,9 +54,41 @@ DATABASES = {
         'NAME': os.path.join(PARENT_DIR, 'db.sqlite3'),
     },
 }
-TEMPLATE_DIRS = (
-        "%s/%s/%s/"%(BASE_DIR, "pred", "static"),
-        )
+
+TEMPLATES = [ 
+    {   
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, 'pred', 'templates'),
+            os.path.join(BASE_DIR, 'pred', 'static'),
+            ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'debug': True,
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],  
+        },  
+    },  
+]
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
 
 # LOGGING configuration
 LOGGING = {
@@ -75,11 +109,11 @@ LOGGING = {
         },
     },
 }
-logging.basicConfig(level=logging.DEBUG)
-#logging.getLogger('spyne.protocol.xml').setLevel(logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
+logging.getLogger('spyne.protocol.xml').setLevel(logging.DEBUG)
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.6/topics/i18n/
+# https://docs.djangoproject.com/en/2.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -93,8 +127,9 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
+# https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = "%s/pred/static"%(BASE_DIR)
 SUPER_USER_LIST = ["admin","nanjiang", "njshu"]
 
