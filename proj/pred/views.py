@@ -620,6 +620,8 @@ def get_results(request, jobid="1"):#{{{
     status = ""
     queuetime = ""
     runtime = ""
+    queuetime_in_sec = 0
+    runtime_in_sec = 0
     if not os.path.exists(rstdir):
         resultdict['isResultFolderExist'] = False
         resultdict['isFinished'] = False
@@ -646,8 +648,10 @@ def get_results(request, jobid="1"):#{{{
             isValidFailedDate = False
         if isValidSubmitDate and isValidStartDate:
             queuetime = myfunc.date_diff(submit_date, start_date)
+            queuetime_in_sec = (start_date - submit_date).total_seconds()
         if isValidStartDate and isValidFailedDate:
             runtime = myfunc.date_diff(start_date, failed_date)
+            runtime_in_sec = (failed_date - start_date).total_seconds()
     else:
         resultdict['isFailed'] = False
         if os.path.exists(finishtagfile):
@@ -671,8 +675,10 @@ def get_results(request, jobid="1"):#{{{
                 isValidFinishDate = False
             if isValidSubmitDate and isValidStartDate:
                 queuetime = myfunc.date_diff(submit_date, start_date)
+                queuetime_in_sec = (start_date - submit_date).total_seconds()
             if isValidStartDate and isValidFinishDate:
                 runtime = myfunc.date_diff(start_date, finish_date)
+                runtime_in_sec = (failed_date - start_date).total_seconds()
         else:
             resultdict['isFinished'] = False
             if os.path.exists(starttagfile):
@@ -688,13 +694,16 @@ def get_results(request, jobid="1"):#{{{
                 status = "Running"
                 if isValidSubmitDate and isValidStartDate:
                     queuetime = myfunc.date_diff(submit_date, start_date)
+                    queuetime_in_sec = (start_date - submit_date).total_seconds()
                 if isValidStartDate:
                     runtime = myfunc.date_diff(start_date, current_time)
+                    runtime_in_sec = (failed_date - start_date).total_seconds()
             else:
                 resultdict['isStarted'] = False
                 status = "Wait"
                 if isValidSubmitDate:
                     queuetime = myfunc.date_diff(submit_date, current_time)
+                    queuetime_in_sec = (current_time - submit_date).total_seconds()
 
     color_status = webcom.SetColorStatus(status)
 
