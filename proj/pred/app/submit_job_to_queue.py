@@ -67,10 +67,18 @@ def SubmitJobToQueue(jobid, datapath, outpath, numseq, numseq_this_user, email, 
             "a", True)
     fafile = "%s/query.fa"%(datapath)
 
+    query_parafile = "%s/query.para.txt"%(outpath)
+    query_para = {}
+    content = myfunc.ReadFile(query_parafile)
+    para_str = content
+    if content != "":
+        query_para = json.loads(content)
+
     if numseq == -1:
         numseq = myfunc.CountFastaSeq(fafile)
     if numseq_this_user == -1:
         numseq_this_user = numseq
+
 
     name_software = "predzinc"
     runjob = "%s %s/run_job.py"%(python_exec, rundir)
@@ -106,7 +114,10 @@ def SubmitJobToQueue(jobid, datapath, outpath, numseq, numseq_this_user, email, 
     myfunc.WriteFile("priority=%d\n"%(priority), g_params['debugfile'], "a",
             True)
 
-    st1 = webcom.SubmitSlurmJob(datapath, outpath, scriptfile, g_params['debugfile'])
+    if 'queue_method' in query_para and query_para['queue_method'] == 'slurm':
+        st1 = webcom.SubmitSlurmJob(datapath, outpath, scriptfile, g_params['debugfile'])
+    else:
+        st1 = webcom.SubmitSuqJob(suq_exec, suq_basedir, datapath, outpath, priority, scriptfile, g_params['debugfile'])
 
     return st1
 #}}}
