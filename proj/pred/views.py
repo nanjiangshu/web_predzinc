@@ -678,7 +678,7 @@ def get_results(request, jobid="1"):#{{{
                 queuetime_in_sec = (start_date - submit_date).total_seconds()
             if isValidStartDate and isValidFinishDate:
                 runtime = myfunc.date_diff(start_date, finish_date)
-                runtime_in_sec = (failed_date - start_date).total_seconds()
+                runtime_in_sec = (finish_date - start_date).total_seconds()
         else:
             resultdict['isFinished'] = False
             if os.path.exists(starttagfile):
@@ -697,7 +697,7 @@ def get_results(request, jobid="1"):#{{{
                     queuetime_in_sec = (start_date - submit_date).total_seconds()
                 if isValidStartDate:
                     runtime = myfunc.date_diff(start_date, current_time)
-                    runtime_in_sec = (failed_date - start_date).total_seconds()
+                    runtime_in_sec = (current_time - start_date).total_seconds()
             else:
                 resultdict['isStarted'] = False
                 status = "Wait"
