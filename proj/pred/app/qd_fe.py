@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # Description: daemon to submit jobs and retrieve results to/from remote
 #              servers
+# 
 import os
 import sys
 import site
@@ -10,6 +11,7 @@ webserver_root = os.path.realpath("%s/../../../"%(rundir))
 
 activate_env="%s/env/bin/activate_this.py"%(webserver_root)
 exec(compile(open(activate_env, "rb").read(), activate_env, 'exec'), dict(__file__=activate_env))
+#Add the site-packages of the virtualenv
 
 from libpredweb import myfunc
 from libpredweb import dataprocess
@@ -63,7 +65,7 @@ Description:
 OPTIONS:
   -h, --help    Print this help message and exit
 
-Created 2015-03-25, updated 2020-01-09, Nanjiang Shu
+Created 2015-03-25, updated 2015-03-25, Nanjiang Shu
 """
 usage_exp="""
 """
@@ -131,9 +133,6 @@ def main(g_params):#{{{
             isOldRstdirDeleted = webcom.DeleteOldResult(path_result, path_log,
                     gen_logfile, MAX_KEEP_DAYS=g_params['MAX_KEEP_DAYS'])
             webcom.CleanServerFile(path_static, gen_logfile, gen_errfile)
-
-        if 'DEBUG_ARCHIVE' in g_params and g_params['DEBUG_ARCHIVE']:
-            webcom.loginfo("Run ArchiveLogFile, path_log=%s, threshold_logfilesize=%d"%(path_log, threshold_logfilesize), gen_logfile)
         webcom.ArchiveLogFile(path_log, threshold_logfilesize=threshold_logfilesize) 
 
         qdcom.CreateRunJoblog(loop, isOldRstdirDeleted, g_params)
@@ -228,12 +227,11 @@ def InitGlobalParameter():#{{{
     g_params['MAX_RESUBMIT'] = 2
     g_params['MAX_SUBMIT_TRY'] = 3
     g_params['MAX_TIME_IN_REMOTE_QUEUE'] = 3600*24 # one day in seconds
-    g_params['UPPER_WAIT_TIME_IN_SEC'] = 60
     g_params['FORMAT_DATETIME'] = webcom.FORMAT_DATETIME
     g_params['TZ'] = "Europe/Stockholm"
     g_params['MAX_CACHE_PROCESS'] = 200 # process at the maximum this cached sequences in one loop
     g_params['STATUS_UPDATE_FREQUENCY'] = [500, 50]  # updated by if loop%$1 == $2
-    g_params['name_server'] = "SubCons"
+    g_params['name_server'] = "predzinc"
     g_params['path_static'] = path_static
     g_params['path_result'] = path_result
     g_params['path_log'] = path_log

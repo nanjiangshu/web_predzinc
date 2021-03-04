@@ -72,7 +72,7 @@ def SubmitJobToQueue(jobid, datapath, outpath, numseq, numseq_this_user, email, 
     if numseq_this_user == -1:
         numseq_this_user = numseq
 
-    name_software = "subcons"
+    name_software = "predzinc"
     runjob = "%s %s/run_job.py"%(python_exec, rundir)
     scriptfile = "%s/runjob;%s;%s;%s;%s;%d.sh"%(outpath, name_software, jobid, host_ip, email, numseq)
     code_str_list = []
