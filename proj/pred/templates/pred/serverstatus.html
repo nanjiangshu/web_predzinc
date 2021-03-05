@@ -8,13 +8,16 @@
     <h2>Server status</h2>
     <table cellspacing=0 cellpadding=5 border=0>
         <tr>
-            <td> Total number of sequences in the queue: </td>
+            <td> Total number of sequences in local queue: </td>
             <td><b>{{num_seq_in_local_queue}}</b></td>
+        </tr>
+        <tr>
+            <td> Total number of sequences in remote queue: </td>
+            <td><b>{{num_seq_in_remote_queue}}</b></td>
         </tr>
     </table>
 
 
-    {%comment%}
     <p class="section">
     <h2>Statistics (since {{startdate}})</h2>
     <table cellspacing=0 cellpadding=5 border=0>
@@ -30,25 +33,15 @@
           <td>Number of unique users (by IP address): </td>
           <td><b>{{num_unique_ip_str}}</b></td>
       </tr>
+      <tr>
+          <td>Number of countries the jobs have been submitted from: </td>
+          <td><b>{{num_unique_country_str}}</b>&nbsp&nbsp(<a href="{{BASEURL}}/countjobcountry">details)</a></td>
+
+      </tr>
     </table>
     </p>
 
     <p class="section">
-        <h3>Extreme cases:</h3>
-        <ul>
-            <li>
-            The longest sequence predicted by TOPCONS (<b>{{longestlength_str}} a.a.</b>)
-            <a href="{{BASEURL}}result/{{li_longestseq.0}}/{{li_longestseq.1}}">link</a>
-            </li>
-            <li>
-            The sequence with most TM helices predicted by TOPCONS (<b>{{mostTM_str}} helices</b>)
-            <a href="{{BASEURL}}result/{{li_mostTM.0}}/{{li_mostTM.1}}">link</a>
-            </li>
-            <li>
-            The sequence takes longest time to predict by TOPCONS (<b>{{longestruntime_str}}</b>)
-            <a href="{{BASEURL}}result/{{li_longestruntime.0}}/{{li_longestruntime.1}}">link</a>
-            </li>
-        </ul>
     </p>
 
     <p class="section">
@@ -76,6 +69,9 @@
             </table>
         </div>
 
+        <!-- add vertical space-->
+        <div class="floattable" style="float:left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>  
+
         <div class="floattable" style="float: left">
         <p>Sorted by number of sequences</p>
         <table class="liststyle1" align="left" cellspacing="2", cellpadding="2">
@@ -99,6 +95,8 @@
         </table>
         </div>
     </p>
+    <!-- clear the floating and start new section-->
+    <br style="clear:both" />
 
     <p class="section">
      <h3>Frequency of submission over time:</h3>
@@ -126,63 +124,6 @@
             alt="" height="400">
         </p>
     </p>
-
-    <p class="section">
-        <h3>Running time of query sequences:</h3>
-        The sequences profiles of TOPCONS might be built by three methods.
-        <ul>
-            <li>
-            <b>Pfam</b>: when Pfam domains can be found for the query sequences.
-            </li>
-            <li>
-            <b>CDD</b>: when Pfam domains cannot be found, but <a href="http://www.ncbi.nlm.nih.gov/Structure/cdd/cdd.shtml">CDD</a> (Conserved Domain Database) domains are found for the query sequences.
-            </li>
-            <li>
-            <b>Uniref</b>: when neither Pfam domains nor CDD domains can be found for the query sequences, a blast searching in Uniref90 is done.
-            </li>
-        </ul>
-
-        <font color="#6633CC"><b>Average running time</b></font><br>
-        <img
-        src="{{STATIC_URL}}log/stat/avg_runtime.stat.txt.rot.png"
-        alt="Average running time" height="400">
-        <br> <br>
-
-        <font color="#6633CC"><b>Average running time versus length of 
-                query sequences</b></font><br>
-        <img
-        src="{{STATIC_URL}}log/stat/length_runtime.pfam.stat.txt.mtp.avgline.png"
-        alt="average running time versus sequence length" height="400">
-        <br> <br>
-
-        <font color="#6633CC"><b>Dot plot for running time versus length of 
-                query sequences</b></font><br>
-        <img
-        src="{{STATIC_URL}}log/stat/length_runtime.pfam.stat.txt.mtp.png"
-        alt="running time versus sequence length" height="400">
-        <br> <br>
-
-    </p>
-
-    <p class="section">
-        <h3>Number of sequences of submitted jobs</h3>
-        A job with one or several sequences can be submitted via the form on
-        the web-page or by the command line script using WSDL service.
-        <img
-        src="{{STATIC_URL}}log/stat/numseq_of_job.web.stat.txt.mtp.png"
-        alt="size of submitted jobs" height="400">
-        <br> <br>
-
-
-    </p>
-
-    <p class="section">
-        <h3>Proteins predicted with signal peptide vs those without</h3>
-        <img
-        src="{{STATIC_URL}}log/stat/noSP_hasSP.stat.txt.png"
-        alt="" height="400">
-    </p>
-    {%endcomment%}
 
 {% endblock %}
 
