@@ -395,9 +395,9 @@ def RunQuery(request, query):#{{{
 
     # for single sequence job submitted via web interface, submit to local
     # queue
-    if query['numseq'] <= 0: #no jobs are submitted to the front-end server, this value can be set to 1 if single sequence jobs submitted via web interface will be run on the front end
+    if query['numseq'] <= 10: 
         query['numseq_this_user'] = 1
-        SubmitQueryToLocalQueue(query, tmpdir, rstdir, isOnlyGetCache=False)
+        SubmitQueryToLocalQueue(query, tmpdir, rstdir, isOnlyGetCache=True)
 
 
     forceruntagfile = "%s/forcerun"%(rstdir)
