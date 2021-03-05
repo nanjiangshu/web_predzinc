@@ -185,7 +185,8 @@ def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
     if not g_params['isOnlyGetCache'] or len(toRunDict) == 0:
         # now write the text output to a single file
         statfile = "%s/%s"%(outpath_result, "stat.txt")
-        webcom.WriteDumpedTextResultFile(name_server="predzinc", resultfile_text, outpath_result, maplist,
+        name_server = "predzinc"
+        webcom.WriteDumpedTextResultFile(name_server=name_server, resultfile_text, outpath_result, maplist,
                 all_runtime_in_sec, g_params['base_www_url'], statfile=statfile)
 
         # now making zip instead (for windows users)
