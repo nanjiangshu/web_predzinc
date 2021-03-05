@@ -6,16 +6,16 @@
     PredZinc is a method for predicting zinc-binding site in proteins given
     amino acid sequences.
 
-    The web-server is developed with Django (>=1.6.4)
+    The web-server is developed with Python 3 and Django (>=2.2.13)
 
-    This software is open source and licensed under the GPL v3 license (a copy
+    This software is open source and licensed under the MIT license (a copy
     of the license is included in the repository)
 
 
 ##Author
 Nanjiang Shu
 
-Short-term bioinformatics support at NBIS
+National Bioinformatics Infrastructure Sweden 
 
 Email: nanjiang.shu@scilifelab.se
 
