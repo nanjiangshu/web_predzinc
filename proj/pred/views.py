@@ -743,32 +743,35 @@ def get_results(request, jobid="1"):#{{{
         resultdict['index_table_header'] = ["No.", "Length", "numZB", "RunTime(s)", "SequenceName", "Source", "FinishDate" ]
         index_table_content_list = []
         indexmap_content = myfunc.ReadFile(finished_seq_file).split("\n")
+        processed_seq_set = set([])
         cnt = 0
         for line in indexmap_content:
             strs = line.split("\t")
             if len(strs)>=7:
                 subfolder = strs[0]
-                length_str = strs[1]
-                numZB_str = strs[2]
-                source = strs[4]
-                try:
-                    finishdate = strs[7]
-                except IndexError:
-                    finishdate = "N/A"
-                try:
-                    runtime_in_sec_str = "%.1f"%(float(strs[5]))
-                    if source == "newrun":
-                        sum_run_time += float(strs[5])
-                        cntnewrun += 1
-                    elif source == "cached":
-                        cntcached += 1
-                except:
-                    runtime_in_sec_str = ""
-                desp = strs[6]
-                rank = "%d"%(cnt+1)
-                index_table_content_list.append([rank, length_str, numZB_str,
-                    runtime_in_sec_str, desp[:30], subfolder, source, finishdate])
-                cnt += 1
+                if not subfolder in processed_seq_set:
+                    processed_seq_set.insert(subfolder)
+                    length_str = strs[1]
+                    numZB_str = strs[2]
+                    source = strs[4]
+                    try:
+                        finishdate = strs[7]
+                    except IndexError:
+                        finishdate = "N/A"
+                    try:
+                        runtime_in_sec_str = "%.1f"%(float(strs[5]))
+                        if source == "newrun":
+                            sum_run_time += float(strs[5])
+                            cntnewrun += 1
+                        elif source == "cached":
+                            cntcached += 1
+                    except:
+                        runtime_in_sec_str = ""
+                    desp = strs[6]
+                    rank = "%d"%(cnt+1)
+                    index_table_content_list.append([rank, length_str, numZB_str,
+                        runtime_in_sec_str, desp[:30], subfolder, source, finishdate])
+                    cnt += 1
         if cntnewrun > 0:
             average_run_time = sum_run_time / cntnewrun
 
