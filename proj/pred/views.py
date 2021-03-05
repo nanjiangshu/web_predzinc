@@ -750,7 +750,7 @@ def get_results(request, jobid="1"):#{{{
             if len(strs)>=7:
                 subfolder = strs[0]
                 if not subfolder in processed_seq_set:
-                    processed_seq_set.insert(subfolder)
+                    processed_seq_set.add(subfolder)
                     length_str = strs[1]
                     numZB_str = strs[2]
                     source = strs[4]
