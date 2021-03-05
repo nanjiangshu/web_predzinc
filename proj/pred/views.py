@@ -855,7 +855,14 @@ def get_results(request, jobid="1"):#{{{
     return render(request, 'pred/get_results.html', resultdict)
 
 #}}}
-def get_results_eachseq(request, jobid="1", seqindex="1"):#{{{
+
+def get_results_eachseq(request, jobid="1", seqindex="1"):# {{{
+    name_resultfile = "query.predzinc.report"
+    name_nicetopfile = "query.predzinc.report.html"
+    resultdict = webcom.get_results_eachseq(request, name_resultfile, name_nicetopfile, jobid, seqindex, g_params)
+    return render(request, 'pred/get_results_eachseq.html', resultdict)
+# }}}
+def get_results_eachseq_old(request, jobid="1", seqindex="1"):#{{{
     resultdict = {}
     webcom.set_basic_config(request, resultdict, g_params)
 
