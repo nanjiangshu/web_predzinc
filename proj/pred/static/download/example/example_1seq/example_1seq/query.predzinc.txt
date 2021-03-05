@@ -1,0 +1,110 @@
+##############################################################################
+PredZinc result file
+Generated from http://dev.predzinc.bioshu.se at 2021-03-05 12:52:25 CET
+Total request time: 50186.7 seconds.
+##############################################################################
+Sequence number: 1
+Sequence name: 2az4_A mol:protein length:429  hypothetical protein EF2904
+Sequence length: 429 aa.
+Sequence:
+MESKAKTTVTFHSGILTIGGTVIEVAYKDAHIFFDFGTEFRPELDLPDDHIETLINNRLVPELKDLYDPRLGYEYHGAEDKDYQHTAVFLSHAHLDHSRMINYLDPAVPLYTLKETKMILNSLNRKGDFLIPSPFEEKNFTREMIGLNKNDVIKVGEISVEIVPVDHDAYGASALLIRTPDHFITYTGDLRLHGHNREETLAFCEKAKHTELLMMEGVSISFPEREPDPAQIAVVSEEDLVQHLVRLELENPNRQITFNGYPANVERFAKIIEKSPRTVVLEANMAALLLEVFGIEVRYYYAESGKIPELNPALEIPYDTLLKDKTDYLWQVVNQFDNLQEGSLYIHSDAQPLGDFDPQYRVFLDLLAKKDITFVRLACSGHAIPEDLDKIIALIEPQVLVPIHTLKPEKLENPYGERILPERGEQIVL
+
+
+The following 9 residues were predicted as zinc-binding (with score >= 0.45, sorted by scores
+
+Res SerialNo  Score
+HIS       94  0.977
+HIS       92  0.953
+ASP       96  0.901
+HIS      167  0.852
+HIS      404  0.848
+HIS      382  0.766
+ASP      189  0.703
+HIS       97  0.614
+GLU      216  0.493
+
+
+Prediction scores for the rest 79 CHDEs, sorted by scores
+
+Res SerialNo  Score
+GLU      237  0.265
+ASP       35  0.141
+HIS      347  0.118
+HIS      193  0.114
+ASP      166  0.069
+HIS       31  0.041
+GLU      205  0.037
+GLU      409  0.030
+HIS      182  0.024
+ASP       65  0.019
+HIS       50  0.017
+GLU      296  0.013
+HIS       12  0.012
+GLU      282  0.011
+GLU      161  0.008
+GLU      417  0.007
+ASP       68  0.004
+GLU       39  0.003
+GLU      266  0.003
+ASP      349  0.003
+CYS      379  0.002
+GLU      157  0.002
+GLU      273  0.002
+ASP      371  0.002
+GLU      422  0.002
+GLU       24  0.002
+GLU      303  0.002
+GLU      136  0.002
+GLU      250  0.002
+GLU      309  0.002
+ASP       29  0.001
+ASP      105  0.001
+GLU      211  0.001
+GLU      291  0.001
+GLU       62  0.001
+GLU      115  0.001
+GLU      198  0.001
+GLU      396  0.001
+GLU      425  0.001
+ASP      168  0.001
+ASP      327  0.001
+HIS      195  0.001
+GLU      199  0.001
+HIS       85  0.001
+HIS      209  0.001
+ASP       45  0.000
+ASP       48  0.000
+ASP      355  0.000
+ASP      357  0.000
+ASP       49  0.000
+HIS       76  0.000
+GLU       79  0.000
+GLU       52  0.000
+ASP      181  0.000
+CYS      204  0.000
+GLU      238  0.000
+GLU       43  0.000
+GLU       74  0.000
+GLU      137  0.000
+GLU      143  0.000
+GLU      226  0.000
+HIS      243  0.000
+GLU      315  0.000
+ASP      324  0.000
+ASP      337  0.000
+GLU      341  0.000
+ASP      387  0.000
+GLU        2  0.000
+ASP       80  0.000
+ASP       82  0.000
+ASP      128  0.000
+ASP      151  0.000
+GLU      224  0.000
+ASP      228  0.000
+ASP      239  0.000
+ASP      319  0.000
+ASP      365  0.000
+GLU      386  0.000
+GLU      412  0.000
+//
+

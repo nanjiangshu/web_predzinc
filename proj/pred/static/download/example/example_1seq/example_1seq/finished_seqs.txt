@@ -1,0 +1,1 @@
+seq_0	429	9	3	newrun	1971.885779	2az4_A mol:protein length:429  hypothetical protein EF2904	2021-03-05 12:52:25 CET
