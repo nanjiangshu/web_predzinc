@@ -740,7 +740,7 @@ def get_results(request, jobid="1"):#{{{
     cntcached = 0
 # get seqid_index_map
     if os.path.exists(finished_seq_file):
-        resultdict['index_table_header'] = ["No.", "Length", "numZB", "RunTime(s)", "SequenceName", "Source" ]
+        resultdict['index_table_header'] = ["No.", "Length", "numZB", "RunTime(s)", "SequenceName", "Source", "FinishDate" ]
         index_table_content_list = []
         indexmap_content = myfunc.ReadFile(finished_seq_file).split("\n")
         cnt = 0
@@ -751,6 +751,10 @@ def get_results(request, jobid="1"):#{{{
                 length_str = strs[1]
                 numZB_str = strs[2]
                 source = strs[4]
+                try:
+                    finishdate = strs[7]
+                except IndexError:
+                    finishdate = "N/A"
                 try:
                     runtime_in_sec_str = "%.1f"%(float(strs[5]))
                     if source == "newrun":
@@ -763,7 +767,7 @@ def get_results(request, jobid="1"):#{{{
                 desp = strs[6]
                 rank = "%d"%(cnt+1)
                 index_table_content_list.append([rank, length_str, numZB_str,
-                    runtime_in_sec_str, desp[:30], subfolder, source])
+                    runtime_in_sec_str, desp[:30], subfolder, source, finishdate])
                 cnt += 1
         if cntnewrun > 0:
             average_run_time = sum_run_time / cntnewrun
