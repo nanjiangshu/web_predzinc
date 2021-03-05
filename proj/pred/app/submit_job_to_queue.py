@@ -114,7 +114,8 @@ def SubmitJobToQueue(jobid, datapath, outpath, numseq, numseq_this_user, email, 
     myfunc.WriteFile("priority=%d\n"%(priority), g_params['debugfile'], "a",
             True)
 
-    if 'queue_method' in query_para and query_para['queue_method'] == 'slurm':
+    query_para['queue_method'] = webcom.get_queue_method_name()
+    if query_para['queue_method'] == 'slurm':
         st1 = webcom.SubmitSlurmJob(datapath, outpath, scriptfile, g_params['debugfile'])
     else:
         st1 = webcom.SubmitSuqJob(suq_exec, suq_basedir, datapath, outpath, priority, scriptfile, g_params['debugfile'])
