@@ -18,3 +18,7 @@ md5/
 env/
 bak.env/
 *.py.bak
+
+proj/pred/config/*.txt
+proj/settings.py
+env*bak/
