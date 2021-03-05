@@ -857,7 +857,7 @@ def get_results(request, jobid="1"):#{{{
 #}}}
 def get_results_eachseq(request, jobid="1", seqindex="1"):#{{{
     resultdict = {}
-    set_basic_config(request, resultdict)
+    webcom.set_basic_config(request, resultdict, g_params)
 
     rstdir = "%s/%s"%(path_result, jobid)
     outpathname = jobid
