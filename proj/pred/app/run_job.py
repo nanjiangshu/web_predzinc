@@ -39,7 +39,7 @@ usage_short="""
 Usage: %s seqfile_in_fasta 
        %s -jobid JOBID -outpath DIR -tmpdir DIR
        %s -email EMAIL -baseurl BASE_WWW_URL
-"""%(progname, wspace, wspace, wspace)
+"""%(progname, wspace, wspace)
 
 usage_ext="""\
 Description:
@@ -82,7 +82,7 @@ def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
     zipfile = "%s.zip"%(resultpathname)
     tarball_fullpath = "%s.tar.gz"%(outpath_result)
     zipfile_fullpath = "%s.zip"%(outpath_result)
-    resultfile_text = "%s/%s"%(outpath_result, "query.top")
+    resultfile_text = "%s/%s"%(outpath_result, "query.predzinc.txt")
     mapfile = "%s/seqid_index_map.txt"%(outpath_result)
     finished_seq_file = "%s/finished_seqs.txt"%(outpath_result)
     finished_idx_file = "%s/finished_seqindex.txt"%(outpath)
@@ -182,11 +182,11 @@ def RunJob(infile, outpath, tmpdir, email, jobid, g_params):#{{{
     all_end_time = time.time()
     all_runtime_in_sec = all_end_time - all_begin_time
 
-    if not g_params['isOnlyGetCache'] or len(toRunDict) == 0:
+    if len(toRunDict) == 0:
         # now write the text output to a single file
         statfile = "%s/%s"%(outpath_result, "stat.txt")
         name_server = "predzinc"
-        webcom.WriteDumpedTextResultFile(name_server=name_server, resultfile_text, outpath_result, maplist,
+        webcom.WriteDumpedTextResultFile(name_server, resultfile_text, outpath_result, maplist,
                 all_runtime_in_sec, g_params['base_www_url'], statfile=statfile)
 
         # now making zip instead (for windows users)
@@ -333,7 +333,6 @@ def InitGlobalParameter():#{{{
     g_params = {}
     g_params['isQuiet'] = True
     g_params['isForceRun'] = False
-    g_params['isOnlyGetCache'] = False
     g_params['base_www_url'] = ""
     g_params['jobid'] = ""
     g_params['lockfile'] = ""

@@ -15,6 +15,8 @@ import time
 import math
 from libpredweb import myfunc
 from libpredweb import webserver_common as webcom
+suq_exec = "/usr/bin/suq"
+suq_basedir = "/tmp"
 progname =  os.path.basename(__file__)
 wspace = ''.join([" "]*len(progname))
 
