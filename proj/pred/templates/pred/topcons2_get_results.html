@@ -55,39 +55,7 @@
                 <p>
                     <b>Processed {{num_finished}} / {{numseq}} ({{percent_finished}} %) </b>
                 </p>
-
-                <p>List of finished sequences. Please click the link of each sequence below to see the
-                result of individual sequence</p>
-                <table class="sortable" id="jobtable" align="left">
-                  <thead>
-                    <tr>
-                        {% for hd in index_table_header %}
-                            <th>{{hd}}</th>
-                        {% endfor %}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for record in index_table_content_list %}
-                        {% if indexfiletype == "indexmap"  %}
-                            <tr>
-                                <td>{{record.0}}</td>
-                                <td>{{record.1}}</td>
-                                <td><a href="{{BASEURL}}result/{{jobid}}/{{record.3}}">{{record.2}}</a></td>
-                            </tr>
-                        {% elif indexfiletype == "finishedfile" %}
-                            <tr>
-                                <td>{{record.0}}</td>
-                                <td>{{record.1}}</td>
-                                <td>{{record.2}}</td>
-                                <td>{{record.3}}</td>
-                                <td><a href="{{BASEURL}}result/{{jobid}}/{{record.5}}">{{record.4}}</a></td>
-                                <td>{{record.6}}</td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                  </tbody>
-                </table>
-
+                {% include "pred/result_table_list.html" %}
             {%endif%}
 
         {% elif isFinished %}
@@ -122,59 +90,7 @@
             </p>
             <hr>
             {% if numseq > 1 %}
-                <table  align="left" cellspacing="1" cellpadding="1">
-                    <tr>
-                        <td>Total number of protein sequences:</td>
-                        <td>{{numseq}}</td>
-                    </tr>
-                    {% if num_ZB %}
-                    <tr>
-                        <td>Number of predicted zinc-binding proteins:</td> 
-                        <td>{{num_ZB}} / {{numseq}} ({{per_ZB}} %)</td>
-                    </tr>
-                    {% endif %}
-
-                    <tr></tr>
-                    <tr height=40px>
-                        <td colspan="2">
-                            <font color="#000099">
-                        Please click the link of each sequence below to see the
-                        result of individual sequence<br>
-                        Note that the table below is sortable by clicking the table header
-                            </font>
-                        </td>
-                    </tr>
-                </table>
-                <br>
-
-                <table class="sortable" align="left" id="jobtable" cellpadding="2">
-                  <thead>
-                    <tr>
-                        {% for hd in index_table_header %}
-                            <th>{{hd}}</th>
-                        {% endfor %}
-                  </thead>
-                  <tbody>
-                    {% for record in index_table_content_list %}
-                        {% if indexfiletype == "indexmap"  %}
-                            <tr>
-                                <td>{{record.0}}</td>
-                                <td>{{record.1}}</td>
-                                <td><a href="{{BASEURL}}result/{{jobid}}/{{record.3}}">{{record.2}}</a></td>
-                            </tr>
-                        {% elif indexfiletype == "finishedfile" %}
-                            <tr>
-                                <td>{{record.0}}</td>
-                                <td>{{record.1}}</td>
-                                <td>{{record.2}}</td>
-                                <td>{{record.3}}</td>
-                                <td><a href="{{BASEURL}}result/{{jobid}}/{{record.5}}">{{record.4}}</a></td>
-                                <td>{{record.6}}</td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                  </tbody>
-                </table>
+                    {% include "pred/result_table_list.html" %}
             {% else %}
                 {% include "pred/show_topoinfo.html"%}
             {%endif%}
@@ -218,37 +134,7 @@
                         Estimated remaining time: {{time_remain}}</b>
                 </p>
 
-                <p>List of finished sequences. Please click the link of each sequence below to see the
-                result of individual sequence</p>
-                <table class="sortable" align="left" id="jobtable" cellpadding="2">
-                   <thead>
-                    <tr>
-                        {% for hd in index_table_header %}
-                            <th>{{hd}}</th>
-                        {% endfor %}
-                    </tr>
-                   </thead>
-                   <tbody>
-                    {% for record in index_table_content_list %}
-                        {% if indexfiletype == "indexmap"  %}
-                            <tr>
-                                <td>{{record.0}}</td>
-                                <td>{{record.1}}</td>
-                                <td><a href="{{BASEURL}}result/{{jobid}}/{{record.3}}">{{record.2}}</a></td>
-                            </tr>
-                        {% elif indexfiletype == "finishedfile" %}
-                            <tr>
-                                <td>{{record.0}}</td>
-                                <td>{{record.1}}</td>
-                                <td>{{record.2}}</td>
-                                <td>{{record.3}}</td>
-                                <td><a href="{{BASEURL}}result/{{jobid}}/{{record.5}}">{{record.4}}</a></td>
-                                <td>{{record.6}}</td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                   </tbody>
-                </table>
+                {% include "pred/result_table_list.html" %}
 
             {%endif%}
 

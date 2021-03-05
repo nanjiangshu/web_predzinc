@@ -777,22 +777,6 @@ def get_results(request, jobid="1"):#{{{
         resultdict['num_finished'] = cnt
         num_finished = cnt
         resultdict['percent_finished'] = "%.1f"%(float(cnt)/numseq*100)
-    elif os.path.exists(seqid_index_mapfile):
-        resultdict['index_table_header'] = ["No.", "Length","SequenceName"]
-        index_table_content_list = []
-        indexmap_content = myfunc.ReadFile(seqid_index_mapfile).split("\n")
-        cnt = 0
-        for line in indexmap_content:
-            strs = line.split("\t")
-            if len(strs)>=3:
-                subfolder = strs[0]
-                length_str = strs[1]
-                desp = strs[2]
-                rank = "%d"%(cnt+1)
-                index_table_content_list.append([rank, length_str, desp[:60], subfolder])
-                cnt += 1
-        resultdict['index_table_content_list'] = index_table_content_list
-        resultdict['indexfiletype'] = "indexmap"
     else:
         resultdict['index_table_header'] = []
         resultdict['index_table_content_list'] = []
@@ -866,63 +850,6 @@ def get_results_eachseq(request, jobid="1", seqindex="1"):# {{{
     resultdict = webcom.get_results_eachseq(request, name_resultfile, name_nicetopfile, jobid, seqindex, g_params)
     return render(request, 'pred/get_results_eachseq.html', resultdict)
 # }}}
-def get_results_eachseq_old(request, jobid="1", seqindex="1"):#{{{
-    resultdict = {}
-    webcom.set_basic_config(request, resultdict, g_params)
-
-    rstdir = "%s/%s"%(path_result, jobid)
-    outpathname = jobid
-
-    jobinfofile = "%s/jobinfo"%(rstdir)
-    jobinfo = myfunc.ReadFile(jobinfofile).strip()
-    jobinfolist = jobinfo.split("\t")
-    if len(jobinfolist) >= 8:
-        submit_date_str = jobinfolist[0]
-        numseq = int(jobinfolist[3])
-        jobname = jobinfolist[5]
-        email = jobinfolist[6]
-        method_submission = jobinfolist[7]
-    else:
-        submit_date_str = ""
-        numseq = 1
-        jobname = ""
-        email = ""
-        method_submission = "web"
-
-    status = ""
-
-    resultdict['jobid'] = jobid
-    resultdict['jobname'] = jobname
-    resultdict['outpathname'] = os.path.basename(outpathname)
-    resultdict['BASEURL'] = g_params['BASEURL']
-    resultdict['status'] = status
-    resultdict['numseq'] = numseq
-    base_www_url = webcom.get_url_scheme(request) + request.META['HTTP_HOST']
-
-    resultfile = "%s/%s/%s/%s"%(rstdir, outpathname, seqindex, "query.predzinc.report")
-    if os.path.exists(resultfile):
-        resultdict['resultfile'] = os.path.basename(resultfile)
-    else:
-        resultdict['resultfile'] = ""
-
-    # get prediction results for the first seq
-    topfolder_seq0 = "%s/%s/%s"%(rstdir, jobid, seqindex)
-    subdirname = seqindex
-    resultdict['subdirname'] = subdirname
-    nicetopfile = "%s/query.predzinc.report.html"%(topfolder_seq0)
-    if os.path.exists(nicetopfile):
-        resultdict['nicetopfile'] = "%s/%s/%s/%s/%s"%(
-                "result", jobid, jobid, subdirname,
-                os.path.basename(nicetopfile))
-    else:
-        resultdict['nicetopfile'] = ""
-    resultdict['isResultFolderExist'] = False
-    if os.path.exists(topfolder_seq0):
-        resultdict['isResultFolderExist'] = True
-
-    resultdict['jobcounter'] = webcom.GetJobCounter(resultdict)
-    return render(request, 'pred/get_results_eachseq.html', resultdict)
-#}}}
 
 # enabling wsdl service
 

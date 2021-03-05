@@ -1,0 +1,68 @@
+<table  align="left" cellspacing="1" cellpadding="1">
+    {% if isFinished and numseq > 1 %}
+         <tr>
+             <td>Total number of protein sequences:</td>
+             <td>{{numseq}}</td>
+         </tr>
+         {% if num_ZB %}
+         <tr>
+             <td>Number of predicted zinc-binding proteins:</td> 
+             <td>{{num_ZB}} / {{numseq}} ({{per_ZB}} %)</td>
+         </tr>
+         {% endif %}
+    {% endif %}
+
+    <tr></tr>
+
+    <tr height=40px>
+        <td colspan="2">
+            <font color="#000099">
+            Please click the link of each sequence below to see the
+            result of individual sequence<br>
+            {% if num_row_result_table > 1 %}
+                Note that the table below is sortable by clicking the table header
+            {% endif %}
+            </font>
+        </td>
+    </tr>
+    {% if num_finished > MAX_ROWS_TO_SHOW_IN_TABLE %}
+    <tr height=45px>
+        <td colspan="2">
+        <font color="#ffa31a">
+            Note also that only the results of the first
+            {{MAX_ROWS_TO_SHOW_IN_TABLE}} sequences are shown in
+            the table below.
+        </font>
+    </td></tr>
+    {% endif %}
+</table>
+<br><br>
+<br><br>
+<table class="liststyle1" align="left" id="jobtable" cellpadding="2">
+    {% if num_row_result_table > 1 %}
+    <thead>
+    {% endif %}
+    <tr>
+        {% for hd in index_table_header %}
+            <th>{{hd}}</th>
+        {% endfor %}
+    </tr>
+    {% if num_row_result_table > 1 %}
+    </thead>
+    <tbody>
+    {% endif %}
+    {% for record in index_table_content_list %}
+        <tr>
+            <td align="center">{{record.0}}</td>
+            <td align="center">{{record.1}}</td>
+            <td align="center">{{record.2}}</td>
+            <td align="center">{{record.3}}</td>
+            <td align="center"><a href="{{BASEURL}}result/{{jobid}}/{{record.5}}">{{record.4}}</a></td>
+            <td align="center">{{record.6}}</td>
+            <td align="center">{{record.7}}</td>
+        </tr>
+    {% endfor %}
+    {% if num_row_result_table > 1 %}
+    </tbody>
+    {% endif %}
+</table>
