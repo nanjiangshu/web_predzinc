@@ -1,6 +1,6 @@
-#Web-server for PredZinc
+# Web-server for PredZinc
 
-##Description:
+## Description:
     This is the web-server implementation for PredZinc
 
     PredZinc is a method for predicting zinc-binding site in proteins given
@@ -12,7 +12,7 @@
     of the license is included in the repository)
 
 
-##Author
+## Author
 Nanjiang Shu
 
 National Bioinformatics Infrastructure Sweden 
@@ -23,6 +23,7 @@ Email: nanjiang.shu@scilifelab.se
 
 Nanjiang Shu, Tuping Zhou and Sven Hovmöller. Prediction of Zinc-Binding Sites
 in Proteins from Sequence. Bioinformatics, 2008;24(6):775-82
+[PubMed](http://www.ncbi.nlm.nih.gov/pubmed/18245129)
 
 ## Installation
 
