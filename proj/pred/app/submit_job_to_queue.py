@@ -10,11 +10,11 @@
 #   try
 import os
 import sys
-import myfunc
 import subprocess
 import time
 import math
-suq_exec = "/usr/bin/suq"
+from libpredweb import myfunc
+from libpredweb import webserver_common as webcom
 progname =  os.path.basename(__file__)
 wspace = ''.join([" "]*len(progname))
 
@@ -25,18 +25,14 @@ vip_user_list = [
 rundir = os.path.dirname(os.path.realpath(__file__))
 basedir = os.path.realpath("%s/../"%(rundir))
 python_exec = os.path.realpath("%s/../../env/bin/python"%(basedir))
-suq_basedir = "/tmp"
-if os.path.exists("/scratch"):
-    suq_basedir = "/scratch"
-elif os.path.exists("/tmp"):
-    suq_basedir = "/tmp"
+virt_env_path = os.path.realpath("%s/../../env"%(basedir))   
 gen_errfile = "%s/static/log/%s.log"%(basedir, progname)
 
 usage_short="""
 Usage: %s -nseq INT -jobid STR -outpath DIR -datapath DIR
        %s -email EMAIL -host IP -baseurl BASE_WWW_URL
        %s -nseq-this-user INT
-       %s [-force]
+       %s -only-get-cache [-force]
 
 Description: 
     BASE_WWW_URL e.g. topcons.net
@@ -48,11 +44,12 @@ Description:
     datapath should include query.fa
 
 OPTIONS:
+  -only-get-cache   Only get the cached results, this will be run on the front-end
   -force            Do not use cahced result
   -nseq-this-user   Number of sequences in the queue submitted by this user
   -h, --help    Print this help message and exit
 
-Created 2015-01-20, updated 2015-03-26, Nanjiang Shu
+Created 2015-01-20, updated 2016-12-07, Nanjiang Shu
 """
 usage_exp="""
 Examples:
@@ -60,9 +57,9 @@ Examples:
 """%(progname)
 
 def PrintHelp(fpout=sys.stdout):#{{{
-    print >> fpout, usage_short
-    print >> fpout, usage_ext
-    print >> fpout, usage_exp#}}}
+    print(usage_short, file=fpout)
+    print(usage_ext, file=fpout)
+    print(usage_exp, file=fpout)#}}}
 
 def SubmitJobToQueue(jobid, datapath, outpath, numseq, numseq_this_user, email, #{{{
         host_ip, base_www_url):
@@ -70,15 +67,25 @@ def SubmitJobToQueue(jobid, datapath, outpath, numseq, numseq_this_user, email, 
             "a", True)
     fafile = "%s/query.fa"%(datapath)
 
+    query_parafile = "%s/query.para.txt"%(outpath)
+    query_para = {}
+    content = myfunc.ReadFile(query_parafile)
+    para_str = content
+    if content != "":
+        query_para = json.loads(content)
+
     if numseq == -1:
         numseq = myfunc.CountFastaSeq(fafile)
     if numseq_this_user == -1:
         numseq_this_user = numseq
 
+
+    name_software = "predzinc"
     runjob = "%s %s/run_job.py"%(python_exec, rundir)
-    scriptfile = "%s/runjobSPLIT%sSPLIT%sSPLIT%sSPLIT%d.sh"%(datapath, jobid, host_ip, email, numseq)
+    scriptfile = "%s/runjob;%s;%s;%s;%s;%d.sh"%(outpath, name_software, jobid, host_ip, email, numseq)
     code_str_list = []
     code_str_list.append("#!/bin/bash")
+    code_str_list.append("source %s/bin/activate"%(virt_env_path))
     cmdline = "%s %s -outpath %s -tmpdir %s -jobid %s "%(runjob, fafile, outpath, datapath, jobid)
     if email != "":
         cmdline += "-email \"%s\" "%(email)
@@ -86,6 +93,8 @@ def SubmitJobToQueue(jobid, datapath, outpath, numseq, numseq_this_user, email, 
         cmdline += "-baseurl \"%s\" "%(base_www_url)
     if g_params['isForceRun']:
         cmdline += "-force "
+    if g_params['isOnlyGetCache']:
+        cmdline += "-only-get-cache "
     code_str_list.append(cmdline)
 
     code = "\n".join(code_str_list)
@@ -94,7 +103,7 @@ def SubmitJobToQueue(jobid, datapath, outpath, numseq, numseq_this_user, email, 
     myfunc.WriteFile(msg+"\n", g_params['debugfile'], "a", True)
 
     myfunc.WriteFile(code, scriptfile, mode="w", isFlush=True)
-    os.chmod(scriptfile, 0755)
+    os.chmod(scriptfile, 0o755)
 
     myfunc.WriteFile("Getting priority"+"\n", g_params['debugfile'], "a", True)
     priority = myfunc.GetSuqPriority(numseq_this_user)
@@ -105,44 +114,12 @@ def SubmitJobToQueue(jobid, datapath, outpath, numseq, numseq_this_user, email, 
     myfunc.WriteFile("priority=%d\n"%(priority), g_params['debugfile'], "a",
             True)
 
-    st1 = SubmitSuqJob(suq_basedir, datapath, priority, scriptfile)
+    if 'queue_method' in query_para and query_para['queue_method'] == 'slurm':
+        st1 = webcom.SubmitSlurmJob(datapath, outpath, scriptfile, g_params['debugfile'])
+    else:
+        st1 = webcom.SubmitSuqJob(suq_exec, suq_basedir, datapath, outpath, priority, scriptfile, g_params['debugfile'])
 
     return st1
-#}}}
-def SubmitSuqJob(suq_basedir, datapath, priority, scriptfile):#{{{
-    myfunc.WriteFile("Entering SubmitSuqJob()\n", g_params['debugfile'], "a",
-            True)
-    rmsg = ""
-    cmd = [suq_exec,"-b", suq_basedir, "run", "-d", datapath, "-p", "%d"%(priority), scriptfile]
-    cmdline = " ".join(cmd)
-    myfunc.WriteFile("cmdline: %s\n\n"%(cmdline), g_params['debugfile'], "a",
-            True)
-    MAX_TRY = 5
-    cnttry = 0
-    isSubmitSuccess = False
-    while cnttry < MAX_TRY:
-        try:
-            myfunc.WriteFile("run cmd: cnttry = %d, MAX_TRY=%d\n"%(cnttry,
-                MAX_TRY), g_params['debugfile'], "a", True)
-            rmsg = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
-            isSubmitSuccess = True
-            break
-        except subprocess.CalledProcessError, e:
-            print  e
-            print rmsg
-            myfunc.WriteFile(str(e)+"\n"+rmsg+"\n", g_params['debugfile'],
-                    "a", True)
-            pass
-        cnttry += 1
-        time.sleep(0.05+cnttry*0.03)
-    if isSubmitSuccess:
-        myfunc.WriteFile("Leaving SubmitSuqJob() with success\n\n",
-                g_params['debugfile'], "a", True)
-        return 0
-    else:
-        myfunc.WriteFile("Leaving SubmitSuqJob() with error\n\n",
-                g_params['debugfile'], "a", True)
-        return 1
 #}}}
 def main(g_params):#{{{
     argv = sys.argv
@@ -164,7 +141,7 @@ def main(g_params):#{{{
     isNonOptionArg=False
     while i < numArgv:
         if isNonOptionArg == True:
-            print >> g_params['fperr'], "Error! Wrong argument:", argv[i]
+            webcom.loginfo("Error! Wrong argument: %s"% (argv[i]), gen_errfile)
             return 1
             isNonOptionArg = False
             i += 1
@@ -194,40 +171,43 @@ def main(g_params):#{{{
             elif argv[i] in ["-force", "--force"]:
                 g_params['isForceRun'] = True
                 i += 1
+            elif argv[i] in ["-only-get-cache", "--only-get-cache"]:
+                g_params['isOnlyGetCache'] = True
+                i += 1
             elif argv[i] in ["-q", "--q"]:
                 g_params['isQuiet'] = True
                 i += 1
             else:
-                print >> g_params['fperr'], "Error! Wrong argument:", argv[i]
+                webcom.loginfo("Error! Wrong argument: %s"%(argv[i]), gen_errfile)
                 return 1
         else:
-            print >> g_params['fperr'], "Error! Wrong argument:", argv[i]
+            webcom.loginfo("Error! Wrong argument: %s"%(argv[i]), gen_errfile)
             return 1
 
     if outpath == "":
-        print >> g_params['fperr'], "outpath not set. exit"
+        webcom.loginfo("outpath not set. exit", gen_errfile)
         return 1
     elif not os.path.exists(outpath):
         cmd =  ["mkdir", "-p", outpath]
         try:
             rmsg = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
-        except subprocess.CalledProcessError, e:
-            print e
-            print rmsg
+        except subprocess.CalledProcessError as e:
+            print(e)
+            print(rmsg)
             return 1
 
     if jobid == "":
-        print >> g_params['fperr'], "%s: jobid not set. exit"%(sys.argv[0])
+        webcom.loginfo("%s: jobid not set. exit"%(sys.argv[0]), gen_errfile)
         return 1
 
     if datapath == "":
-        print >> g_params['fperr'], "%s: datapath not set. exit"%(sys.argv[0])
+        webcom.loginfo("%s: datapath not set. exit"%(sys.argv[0]), gen_errfile)
         return 1
     elif not os.path.exists(datapath):
-        print >> g_params['fperr'], "%s: datapath does not exist. exit"%(sys.argv[0])
+        webcom.loginfo("%s: datapath does not exist. exit"%(sys.argv[0]), gen_errfile)
         return 1
     elif not os.path.exists("%s/query.fa"%(datapath)):
-        print >> g_params['fperr'], "%s: file %s/query.fa does not exist. exit"%(sys.argv[0], datapath)
+        webcom.loginfo("%s: file %s/query.fa does not exist. exit"%(sys.argv[0], datapath), gen_errfile)
         return 1
 
     g_params['debugfile'] = "%s/debug.log"%(outpath)
@@ -242,19 +222,10 @@ def InitGlobalParameter():#{{{
     g_params = {}
     g_params['isQuiet'] = True
     g_params['isForceRun'] = False
-    g_params['fperr'] = None
+    g_params['isOnlyGetCache'] = False
     return g_params
 #}}}
 if __name__ == '__main__' :
     g_params = InitGlobalParameter()
-    try:
-        g_params['fperr'] = open(gen_errfile, "a")
-    except IOError:
-        g_params['fperr'] = sys.stderr
-        pass
-    g_params = InitGlobalParameter()
-    status = main(g_params)
-    if g_params['fperr'] and g_params['fperr'] != sys.stderr:
-        g_params['fperr'].close()
-    sys.exit(status)
+    sys.exit(main(g_params))
 

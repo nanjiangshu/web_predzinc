@@ -9,32 +9,26 @@ use Cwd 'abs_path';
 use File::Basename;
 my $rundir = dirname(abs_path(__FILE__));
 # at proj
-my $basedir = abs_path("$rundir/../pred");
-my $progname = basename(__FILE__);
-my $logpath = "$basedir/static/log";
-my $errfile = "$logpath/$progname.err";
+my $basedir = "$rundir/../pred";
 my $auth_ip_file = "$basedir/config/auth_iplist.txt";#ip address which allows to run cgi script
-my $suq = "/usr/bin/suq";
-my $suqbase = "/scratch";
 
 print header();
-print start_html(-title => "get suq list",
+print start_html(-title => "set suq ntask",
     -author => "nanjiang.shu\@scilifelab.se",
     -meta   => {'keywords'=>''});
 
 # if(!param())
 # {
 #     print "<pre>\n";
-#     print "usage: curl get_suqlist.cgi -d base=suqbasedir \n\n";
+#     print "usage: curl set_suqntask.cgi -d base=suqbasedir -d ntask=N\n\n";
 #     print "       or in the browser\n\n";
-#     print "       get_suqlist.cgi?base=suqbasedir\n\n";
-#     print "Example\n";
-#     print "       get_suqlist.cgi?base=log\n";
+#     print "       set_suqntask.cgi?base=suqbasedir&ntask=N\n";
 #     print "</pre>\n";
 #     print end_html();
 # }
+my $suqbase = "/scratch";
+my $ntask=param('ntask');
 my $remote_host = $ENV{'REMOTE_ADDR'};
-
 my @auth_iplist = ();
 open(IN, "<", $auth_ip_file) or die;
 while(<IN>) {
@@ -44,11 +38,21 @@ while(<IN>) {
 close IN;
 
 if (grep { $_ eq $remote_host } @auth_iplist) {
-    my $command =  "$suq -b $suqbase ls 2>>$errfile";
-    $suqlist = `$command`;
+    $suqlist = `suq -b $suqbase ls`;
+    $current_ntask =`suq -b $suqbase ls | grep "max tasks" | awk '{print \$NF}'`;
+    chomp($current_ntask);
+
     print "<pre>";
     print "Host IP: $remote_host\n\n";
-    print "command: $command\n\n";
+    print "ntask before re-setting: $current_ntask\n\n";
+# set ntask
+    `suq -b $suqbase ntask $ntask`;
+    print "suq -b $suqbase ntask $ntask\n\n";
+
+    $after_ntask =`suq -b $suqbase ls | grep "max tasks" | awk '{print \$NF}'`;
+
+    print "ntask after re-setting: $after_ntask\n\n";
+
     print "Suq list:\n\n";
     print "$suqlist\n";
 

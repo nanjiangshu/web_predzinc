@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
-# get set suq ntask
-#Created 2015-03-20, updated 2015-03-20, Nanjiang Shu
+# test runjob
+
 use CGI qw(:standard);
 use CGI qw(:cgi-lib);
 use CGI qw(:upload);
@@ -16,9 +16,12 @@ my $errfile = "$logpath/$progname.err";
 my $auth_ip_file = "$basedir/config/auth_iplist.txt";#ip address which allows to run cgi script
 my $suq = "/usr/bin/suq";
 my $suqbase = "/scratch";
+my $suqworkdir = "/scratch";
+
+my $runjobscript = "$basedir/pred/app/run_job.py";
 
 print header();
-print start_html(-title => "get suq list",
+print start_html(-title => "test run job",
     -author => "nanjiang.shu\@scilifelab.se",
     -meta   => {'keywords'=>''});
 
@@ -44,13 +47,13 @@ while(<IN>) {
 close IN;
 
 if (grep { $_ eq $remote_host } @auth_iplist) {
-    my $command =  "$suq -b $suqbase ls 2>>$errfile";
-    $suqlist = `$command`;
+    my $command =  "$suq -b $suqbase run -d $suqworkdir $runjobscript >>$errfile";
+    $output = `$command`;
     print "<pre>";
     print "Host IP: $remote_host\n\n";
     print "command: $command\n\n";
     print "Suq list:\n\n";
-    print "$suqlist\n";
+    print "$output\n";
 
     print "</pre>";
 }else{

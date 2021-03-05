@@ -1,0 +1,2 @@
+localhost
+predzinc.bioshu.se

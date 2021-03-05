@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
-# get set suq ntask
-#Created 2015-03-20, updated 2015-03-20, Nanjiang Shu
+# check if the suq queue is hang, if so, clean it
+#Created 2016-02-29, updated 2016-02-29, Nanjiang Shu
 use CGI qw(:standard);
 use CGI qw(:cgi-lib);
 use CGI qw(:upload);
@@ -13,6 +13,7 @@ my $basedir = abs_path("$rundir/../pred");
 my $progname = basename(__FILE__);
 my $logpath = "$basedir/static/log";
 my $errfile = "$logpath/$progname.err";
+my $path_result = "$basedir/static/result";
 my $auth_ip_file = "$basedir/config/auth_iplist.txt";#ip address which allows to run cgi script
 my $suq = "/usr/bin/suq";
 my $suqbase = "/scratch";
@@ -43,15 +44,22 @@ while(<IN>) {
 }
 close IN;
 
+my $threshold = 8;
 if (grep { $_ eq $remote_host } @auth_iplist) {
-    my $command =  "$suq -b $suqbase ls 2>>$errfile";
-    $suqlist = `$command`;
+    my $command =  "pgrep suq | wc -l ";
+    $numsuqjob = `$command`;
+    chomp($numsuqjob);
     print "<pre>";
-    print "Host IP: $remote_host\n\n";
-    print "command: $command\n\n";
-    print "Suq list:\n\n";
-    print "$suqlist\n";
-
+    if ($numsuqjob >= $threshold){
+        print "numsuqjob = $numsuqjob >= $threshold. Try to clean the queue\n";
+        `rm -rf /scratch/.suq ; rm -rf /tmp/.suq.*/; pgrep suq | xargs kill `;
+        print "rm -rf /scratch/.suq ; rm -rf /tmp/.suq.*/; pgrep suq | xargs kill\n\n";
+        # then delete non started jobs
+        `for folder in \$(find $path_result  -maxdepth 1  -type d -name "rst_*"); do if [ ! -f \$folder/runjob.start ];then  rm -rf \$folder;fi; done`;
+        print "for folder in \$(find $path_result  -maxdepth 1  -type d -name \"rst_*\"); do if [ ! -f \$folder/runjob.start ];then  rm -rf \$folder;fi; done\n\n";
+    }else{
+        print "suq queue is normal\n";
+    }
     print "</pre>";
 }else{
     print "Permission denied!\n";
