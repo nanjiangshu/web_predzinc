@@ -1,0 +1,3 @@
+#!/bin/bash
+source /big/server/var/www/web_predzinc/env/bin/activate
+/big/server/var/www/web_predzinc/env/bin/python3.6 /big/server/var/www/web_predzinc/proj/pred/app/run_job.py /big/server/var/www/web_predzinc/proj/pred/static/tmp/tmp_ugc5eo2v/query.fa -outpath /big/server/var/www/web_predzinc/proj/pred/static/result/rst_xb79n0w0 -tmpdir /big/server/var/www/web_predzinc/proj/pred/static/tmp/tmp_ugc5eo2v -jobid rst_xb79n0w0 -email "nanjiang.shu@gmail.com" -baseurl "https://predzinc.bioshu.se" 

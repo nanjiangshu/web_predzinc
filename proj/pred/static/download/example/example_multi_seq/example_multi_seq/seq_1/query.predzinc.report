@@ -1,0 +1,114 @@
+Zinc-binding site prediction by PredZinc version 1.4, 2011-10-14 (c) Shu.
+
+Reference: 
+   Shu, N., Zhou, T. and Hovmoller, S. (2008) Prediction of zinc-binding
+   sites in proteins from sequence, Bioinformatics, 24, 775-782.
+
+Parameters:
+
+Training set: PDB20 (April 2004), 2727 unique chains
+blastpgp version: 2.2.25
+blast database: : uniref90.fasta             130,661,074 sequences; 43,693,113,895 total letters 
+
+
+//BEGIN query 1
+Your input amino acid sequence (containing 458 aa) is
+MTFRKSFDCYDFYDRAKVGEKCTQDDWDLMKIPMKAMELKQKYGLDFKGEFIPTDKDMMEKLFKAGFEML
+LECGIYCTDTHRIVKYTEDEIWDAINNVQKEFVLGTGRDAVNVRKRSVGDKAKPIVQGGPTGSPISEDVF
+MPVHMSYALEKEVDTIVNGVMTSVRGKSPIPKSPYEVLAAKTETRLIKNACAMAGRPGMGVKGPETSLSA
+QGNISADCTGGMTCTDSHEVSQLNELKIDLDAISVIAHYKGNSDIIMDEQMPIFGGYAGGIEETTIVDVA
+THINAVLMSSASWHLDGPVHIRWGSTNTRETLMIAGWACATISEFTDILSGNQYYPCAGPCTEMCLLEAS
+AQSITDTASGREILSGVASAKGVVTDKTTGMEARMMGEVARATAGVEISEVNVILDKLVSLYEKNYASAP
+AGKTFQECYDVKTVTPTEEYMQVYDGARKKLEDLGLVF
+
+No zinc-binding residues were predicted for protein "query_0"
+
+Prediction scores for the rest 84 selected residues, sorted by scores
+
+Res SerialNo  Score
+
+GLU      388  0.305
+GLU      382  0.109
+GLU       60  0.044
+GLU      176  0.039
+GLU      343  0.032
+GLU      183  0.023
+GLU      272  0.020
+HIS      300  0.018
+ASP      109  0.016
+GLU       90  0.016
+GLU      348  0.015
+GLU      235  0.007
+GLU      205  0.005
+GLU      101  0.004
+ASP      154  0.004
+ASP       28  0.004
+GLU       50  0.004
+GLU      259  0.003
+GLU      137  0.003
+GLU      273  0.003
+ASP      120  0.003
+ASP      278  0.003
+GLU       20  0.002
+GLU      310  0.002
+ASP      217  0.002
+CYS       77  0.002
+ASP      430  0.002
+CYS       22  0.001
+GLU      439  0.001
+GLU      150  0.001
+CYS      428  0.001
+ASP      239  0.001
+HIS      248  0.001
+GLU      152  0.001
+GLU       72  0.001
+ASP      226  0.001
+ASP      258  0.001
+ASP      356  0.001
+ASP       57  0.001
+GLU      324  0.001
+GLU      362  0.001
+HIS      294  0.001
+ASP      138  0.001
+CYS      224  0.001
+ASP       11  0.001
+ASP      254  0.000
+HIS      228  0.000
+ASP      376  0.000
+GLU       38  0.000
+GLU      427  0.000
+CYS      218  0.000
+ASP      445  0.000
+ASP       26  0.000
+GLU       88  0.000
+HIS      282  0.000
+ASP       55  0.000
+HIS      144  0.000
+ASP      406  0.000
+GLU       68  0.000
+ASP      241  0.000
+ASP      296  0.000
+GLU      413  0.000
+GLU      400  0.000
+GLU      229  0.000
+ASP       93  0.000
+CYS      345  0.000
+CYS      319  0.000
+CYS      341  0.000
+ASP       14  0.000
+ASP       46  0.000
+CYS      191  0.000
+GLU      452  0.000
+HIS       81  0.000
+CYS      337  0.000
+GLU      438  0.000
+GLU      397  0.000
+CYS       73  0.000
+CYS        9  0.000
+ASP       79  0.000
+ASP        8  0.000
+ASP       25  0.000
+ASP       89  0.000
+ASP      327  0.000
+ASP      453  0.000
+//End

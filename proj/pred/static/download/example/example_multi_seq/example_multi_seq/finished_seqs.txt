@@ -1,0 +1,3 @@
+seq_1	458	0	3	cached	0.0	1nth_A mol:protein length:458  Monomethylamine methyltransferase mtmB1	2021-03-05 22:54:25 CET
+seq_2	429	9	3	cached	0.0	2az4_A mol:protein length:429  hypothetical protein EF2904	2021-03-05 22:54:25 CET
+seq_0	245	8	3	newrun	930.205443	1ah7_A  mol:protein  length:245  chainID:A PHOSPHOLIPASE C FROM BACILLUS CEREUS	2021-03-05 23:20:03 CET

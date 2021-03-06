@@ -1,0 +1,69 @@
+Zinc-binding site prediction by PredZinc version 1.4, 2011-10-14 (c) Shu.
+
+Reference: 
+   Shu, N., Zhou, T. and Hovmoller, S. (2008) Prediction of zinc-binding
+   sites in proteins from sequence, Bioinformatics, 24, 775-782.
+
+Parameters:
+
+Training set: PDB20 (April 2004), 2727 unique chains
+blastpgp version: 2.2.25
+blast database: : uniref90.fasta             130,661,074 sequences; 43,693,113,895 total letters 
+
+
+//BEGIN query 1
+Your input amino acid sequence (containing 245 aa) is
+WSAEDKHKEGVNSHLWIVNRAIDIMSRNTTLVKQDRVAQLNEWRTELENGIYAADYENPYYDNSTFASHF
+YDPDNGKTYIPFAKQAKETGAKYFKLAGESYKNKDMKQAFFYLGLSLHYLGDVNQPMHAANFTNLSYPQG
+FHSKYENFVDTIKDNYKVTDGNGYWNWKGTNPEEWIHGAAVVAKQDYSGIVNDNTKDWFVKAAVSQEYAD
+KWRAEVTPMTGKRLMDAQRVTAGYIQLWFDTYGDR
+
+The following 8 residues were predicted as zinc-binding for protein "query_0" (with score >=  0.450), sorted by scores
+
+Res SerialNo  Score
+
+HIS       69  0.999
+HIS       14  0.989
+HIS      118  0.987
+HIS      142  0.987
+ASP      122  0.976
+HIS      128  0.960
+GLU      146  0.949
+ASP       55  0.931
+
+Prediction scores for the rest 31 selected residues, sorted by scores
+
+Res SerialNo  Score
+
+ASP       72  0.013
+HIS        7  0.009
+GLU      173  0.008
+ASP       74  0.005
+GLU       46  0.004
+ASP      150  0.004
+GLU      174  0.003
+HIS      177  0.003
+ASP        5  0.002
+GLU       42  0.001
+GLU       57  0.001
+ASP      197  0.001
+ASP       23  0.001
+GLU       88  0.001
+ASP      154  0.001
+GLU      215  0.001
+GLU       99  0.001
+ASP      105  0.000
+GLU      207  0.000
+ASP      186  0.000
+GLU       48  0.000
+GLU        9  0.000
+ASP      210  0.000
+GLU        4  0.000
+ASP       62  0.000
+ASP      240  0.000
+ASP      226  0.000
+ASP      193  0.000
+ASP      160  0.000
+ASP       35  0.000
+ASP      244  0.000
+//End

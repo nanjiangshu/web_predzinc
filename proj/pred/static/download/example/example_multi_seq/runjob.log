@@ -1,0 +1,7 @@
+tmpdir = /big/server/var/www/web_predzinc/proj/pred/static/tmp/tmp_ugc5eo2v
+[2021-03-05 22:54:25 CET] Write tag file /big/server/var/www/web_predzinc/proj/pred/static/result/rst_xb79n0w0/runjob.start succeeded
+[2021-03-05 22:54:25 CET] rmtree(/big/server/var/www/web_predzinc/proj/pred/static/tmp/tmp_ugc5eo2v)
+[2021-03-05 22:54:25 CET] Write tag file /big/server/var/www/web_predzinc/proj/pred/static/result/rst_xb79n0w0/cache_processed.finish succeeded
+[2021-03-05 22:54:25 CET] Write tag file /big/server/var/www/web_predzinc/proj/pred/static/result/rst_xb79n0w0/runjob.qdinit succeeded
+[2021-03-05 23:20:03 CET] Write tag file /big/server/var/www/web_predzinc/proj/pred/static/result/rst_xb79n0w0/runjob.finish succeeded
+[2021-03-05 23:20:03 CET] Sendmail no-reply.predzinc@bioshu.se -> nanjiang.shu@gmail.com, Your result for predzinc JOBID=rst_xb79n0w0

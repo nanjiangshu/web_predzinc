@@ -1,0 +1,13 @@
+Go to SubmitJobToQueue()
+Entering SubmitJobToQueue()
+Write scriptfile /big/server/var/www/web_predzinc/proj/pred/static/result/rst_xb79n0w0/runjob;predzinc;rst_xb79n0w0;130.237.250.4;nanjiang.shu@gmail.com;3.sh
+Getting priority
+priority=269193024
+[2021-03-05 22:54:24 CET] Entering SubmitSlurmJob()
+[2021-03-05 22:54:24 CET] cmdline: sbatch /big/server/var/www/web_predzinc/proj/pred/static/result/rst_xb79n0w0/runjob;predzinc;rst_xb79n0w0;130.237.250.4;nanjiang.shu@gmail.com;3.sh
+
+
+[2021-03-05 22:54:24 CET] run cmd: cnttry = 0, MAX_TRY=2
+
+[2021-03-05 22:54:24 CET] Leaving SubmitSlurmJob() with success
+

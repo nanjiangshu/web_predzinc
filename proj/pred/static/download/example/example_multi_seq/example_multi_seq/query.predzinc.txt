@@ -1,0 +1,266 @@
+##############################################################################
+PredZinc result file
+Generated from https://predzinc.bioshu.se at 2021-03-05 23:20:03 CET
+Total request time: 1538.9 seconds.
+##############################################################################
+Sequence number: 1
+Sequence name: 1ah7_A  mol:protein  length:245  chainID:A PHOSPHOLIPASE C FROM BACILLUS CEREUS
+Sequence length: 245 aa.
+Sequence:
+WSAEDKHKEGVNSHLWIVNRAIDIMSRNTTLVKQDRVAQLNEWRTELENGIYAADYENPYYDNSTFASHFYDPDNGKTYIPFAKQAKETGAKYFKLAGESYKNKDMKQAFFYLGLSLHYLGDVNQPMHAANFTNLSYPQGFHSKYENFVDTIKDNYKVTDGNGYWNWKGTNPEEWIHGAAVVAKQDYSGIVNDNTKDWFVKAAVSQEYADKWRAEVTPMTGKRLMDAQRVTAGYIQLWFDTYGDR
+
+
+The following 8 residues were predicted as zinc-binding (with score >= 0.45, sorted by scores
+
+Res SerialNo  Score
+HIS       69  0.999
+HIS       14  0.989
+HIS      118  0.987
+HIS      142  0.987
+ASP      122  0.976
+HIS      128  0.960
+GLU      146  0.949
+ASP       55  0.931
+
+
+Prediction scores for the rest 31 CHDEs, sorted by scores
+
+Res SerialNo  Score
+ASP       72  0.013
+HIS        7  0.009
+GLU      173  0.008
+ASP       74  0.005
+GLU       46  0.004
+ASP      150  0.004
+GLU      174  0.003
+HIS      177  0.003
+ASP        5  0.002
+GLU       42  0.001
+GLU       57  0.001
+ASP      197  0.001
+ASP       23  0.001
+GLU       88  0.001
+ASP      154  0.001
+GLU       99  0.001
+GLU      215  0.001
+ASP      105  0.000
+ASP      186  0.000
+GLU      207  0.000
+GLU        9  0.000
+GLU       48  0.000
+ASP      210  0.000
+GLU        4  0.000
+ASP       62  0.000
+ASP      226  0.000
+ASP      240  0.000
+ASP       35  0.000
+ASP      160  0.000
+ASP      193  0.000
+ASP      244  0.000
+//
+
+Sequence number: 2
+Sequence name: 1nth_A mol:protein length:458  Monomethylamine methyltransferase mtmB1
+Sequence length: 458 aa.
+Sequence:
+MTFRKSFDCYDFYDRAKVGEKCTQDDWDLMKIPMKAMELKQKYGLDFKGEFIPTDKDMMEKLFKAGFEMLLECGIYCTDTHRIVKYTEDEIWDAINNVQKEFVLGTGRDAVNVRKRSVGDKAKPIVQGGPTGSPISEDVFMPVHMSYALEKEVDTIVNGVMTSVRGKSPIPKSPYEVLAAKTETRLIKNACAMAGRPGMGVKGPETSLSAQGNISADCTGGMTCTDSHEVSQLNELKIDLDAISVIAHYKGNSDIIMDEQMPIFGGYAGGIEETTIVDVATHINAVLMSSASWHLDGPVHIRWGSTNTRETLMIAGWACATISEFTDILSGNQYYPCAGPCTEMCLLEASAQSITDTASGREILSGVASAKGVVTDKTTGMEARMMGEVARATAGVEISEVNVILDKLVSLYEKNYASAPAGKTFQECYDVKTVTPTEEYMQVYDGARKKLEDLGLVF
+
+
+No residues were predicted as zinc-binding
+
+
+
+Prediction scores for the rest 84 CHDEs, sorted by scores
+
+Res SerialNo  Score
+GLU      388  0.305
+GLU      382  0.109
+GLU       60  0.044
+GLU      176  0.039
+GLU      343  0.032
+GLU      183  0.023
+GLU      272  0.020
+HIS      300  0.018
+GLU       90  0.016
+ASP      109  0.016
+GLU      348  0.015
+GLU      235  0.007
+GLU      205  0.005
+GLU      101  0.004
+ASP      154  0.004
+ASP       28  0.004
+GLU       50  0.004
+GLU      259  0.003
+GLU      137  0.003
+GLU      273  0.003
+ASP      120  0.003
+ASP      278  0.003
+GLU       20  0.002
+GLU      310  0.002
+ASP      217  0.002
+CYS       77  0.002
+ASP      430  0.002
+CYS       22  0.001
+GLU      150  0.001
+CYS      428  0.001
+GLU      439  0.001
+ASP      239  0.001
+GLU       72  0.001
+GLU      152  0.001
+HIS      248  0.001
+ASP       57  0.001
+ASP      226  0.001
+ASP      258  0.001
+ASP      356  0.001
+GLU      324  0.001
+GLU      362  0.001
+HIS      294  0.001
+ASP       11  0.001
+ASP      138  0.001
+CYS      224  0.001
+GLU       38  0.000
+HIS      228  0.000
+ASP      254  0.000
+ASP      376  0.000
+GLU      427  0.000
+ASP       26  0.000
+ASP       55  0.000
+GLU       68  0.000
+GLU       88  0.000
+HIS      144  0.000
+CYS      218  0.000
+ASP      241  0.000
+HIS      282  0.000
+ASP      406  0.000
+ASP      445  0.000
+ASP       93  0.000
+GLU      229  0.000
+ASP      296  0.000
+CYS      345  0.000
+GLU      400  0.000
+GLU      413  0.000
+CYS        9  0.000
+ASP       14  0.000
+ASP       46  0.000
+CYS       73  0.000
+ASP       79  0.000
+HIS       81  0.000
+CYS      191  0.000
+CYS      319  0.000
+CYS      337  0.000
+CYS      341  0.000
+GLU      397  0.000
+GLU      438  0.000
+GLU      452  0.000
+ASP        8  0.000
+ASP       25  0.000
+ASP       89  0.000
+ASP      327  0.000
+ASP      453  0.000
+//
+
+Sequence number: 3
+Sequence name: 2az4_A mol:protein length:429  hypothetical protein EF2904
+Sequence length: 429 aa.
+Sequence:
+MESKAKTTVTFHSGILTIGGTVIEVAYKDAHIFFDFGTEFRPELDLPDDHIETLINNRLVPELKDLYDPRLGYEYHGAEDKDYQHTAVFLSHAHLDHSRMINYLDPAVPLYTLKETKMILNSLNRKGDFLIPSPFEEKNFTREMIGLNKNDVIKVGEISVEIVPVDHDAYGASALLIRTPDHFITYTGDLRLHGHNREETLAFCEKAKHTELLMMEGVSISFPEREPDPAQIAVVSEEDLVQHLVRLELENPNRQITFNGYPANVERFAKIIEKSPRTVVLEANMAALLLEVFGIEVRYYYAESGKIPELNPALEIPYDTLLKDKTDYLWQVVNQFDNLQEGSLYIHSDAQPLGDFDPQYRVFLDLLAKKDITFVRLACSGHAIPEDLDKIIALIEPQVLVPIHTLKPEKLENPYGERILPERGEQIVL
+
+
+The following 9 residues were predicted as zinc-binding (with score >= 0.45, sorted by scores
+
+Res SerialNo  Score
+HIS       94  0.977
+HIS       92  0.953
+ASP       96  0.901
+HIS      167  0.852
+HIS      404  0.848
+HIS      382  0.766
+ASP      189  0.703
+HIS       97  0.614
+GLU      216  0.493
+
+
+Prediction scores for the rest 79 CHDEs, sorted by scores
+
+Res SerialNo  Score
+GLU      237  0.265
+ASP       35  0.141
+HIS      347  0.118
+HIS      193  0.114
+ASP      166  0.069
+HIS       31  0.041
+GLU      205  0.037
+GLU      409  0.030
+HIS      182  0.024
+ASP       65  0.019
+HIS       50  0.017
+GLU      296  0.013
+HIS       12  0.012
+GLU      282  0.011
+GLU      161  0.008
+GLU      417  0.007
+ASP       68  0.004
+GLU       39  0.003
+GLU      266  0.003
+ASP      349  0.003
+CYS      379  0.002
+GLU      157  0.002
+GLU      273  0.002
+ASP      371  0.002
+GLU      422  0.002
+GLU       24  0.002
+GLU      303  0.002
+GLU      136  0.002
+GLU      250  0.002
+GLU      309  0.002
+ASP       29  0.001
+ASP      105  0.001
+GLU      211  0.001
+GLU      291  0.001
+GLU       62  0.001
+GLU      115  0.001
+GLU      198  0.001
+GLU      396  0.001
+GLU      425  0.001
+ASP      168  0.001
+ASP      327  0.001
+HIS      195  0.001
+GLU      199  0.001
+HIS       85  0.001
+HIS      209  0.001
+ASP       45  0.000
+ASP       48  0.000
+ASP      355  0.000
+ASP      357  0.000
+ASP       49  0.000
+HIS       76  0.000
+GLU       79  0.000
+GLU       52  0.000
+ASP      181  0.000
+CYS      204  0.000
+GLU      238  0.000
+GLU       43  0.000
+GLU       74  0.000
+GLU      137  0.000
+GLU      143  0.000
+GLU      226  0.000
+HIS      243  0.000
+GLU      315  0.000
+ASP      324  0.000
+ASP      337  0.000
+GLU      341  0.000
+ASP      387  0.000
+GLU        2  0.000
+ASP       80  0.000
+ASP       82  0.000
+ASP      128  0.000
+ASP      151  0.000
+GLU      224  0.000
+ASP      228  0.000
+ASP      239  0.000
+ASP      319  0.000
+ASP      365  0.000
+GLU      386  0.000
+GLU      412  0.000
+//
+
