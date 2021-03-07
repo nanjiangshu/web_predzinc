@@ -1,4 +1,5 @@
 {% extends "pred/base_layout.html" %}
+    {% load static %}
 
 
 {%block content_right_panel %}
@@ -109,7 +110,7 @@
        </form>
         <p>
             <img id="imgNumJobSubmit"
-            src="{{STATIC_URL}}log/stat/submit_month.stat.txt.numjob.png"
+            src="{% static "log/stat/submit_month.stat.txt.numjob.png" %}"
             alt="" height="400">
         </p>
        <form>
@@ -120,7 +121,7 @@
        </form>
         <p>
             <img id="imgNumSeqSubmit"
-            src="{{STATIC_URL}}log/stat/submit_month.stat.txt.numseq.png"
+            src="{% static "log/stat/submit_month.stat.txt.numseq.png" %}"
             alt="" height="400">
         </p>
     </p>

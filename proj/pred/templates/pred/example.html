@@ -1,5 +1,6 @@
 {% extends "pred/base_layout.html" %}
 
+    {% load static %}
 {%block content_right_panel %}
     {% if username %}
       {% include "pred/user_header.html" %}
@@ -15,7 +16,7 @@
    </p>
    <p>
    A snapshot of a running job with multiple sequences:
-   <a href="{{STATIC_URL}}images/example_5seq_snapshot.png"><img src="{{STATIC_URL}}images/example_5seq_snapshot.thumb.png" alt="snapshot of example with multi-seqs" style="border: none; height: 50;"></a>
+   <a href="{% static "images/example_5seq_snapshot.png" %}"><img src="{% static "images/example_5seq_snapshot.thumb.png" %}" alt="snapshot of example with multi-seqs" style="border: none; height: 50;"></a>
    </p>
 
 {% endblock %}

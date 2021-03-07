@@ -1,4 +1,6 @@
+
 {% extends "pred/base_layout.html" %}
+    {% load static %}
 
 {%block content_right_panel %}
 
@@ -21,39 +23,6 @@
 
     Force run (do not use cached results): <input type="checkbox" name="forcerun">
 
-    {% comment %}
-    <br><br>
-    <a href="#" onClick="javascript:hideShow('options');return false;" style="text-decoration:none; color:#333333"><b>Restrainment options</b><img id="arrow" src='{{STATIC_URL}}images/arrow90.png' border=0>
-    </a>
-
-    <br>
-    <table cellspacing=0 cellpadding=0 border=0 id="options">
-        <tr><td colspan=2><img src='{{STATIC_URL}}images/0.gif' width=1 height=10></td></tr>
-        <tr><td colspan=2>Restrain parts of the sequence to a known Inside/Outside/Membrane location</td></tr>
-        <tr><td colspan=2><img src='{{STATIC_URL}}images/0.gif' width=1 height=5></td></tr>
-        <tr><td>N-term&nbsp;</td><td>
-                <select name="Nfix">
-                    <option value=""></option>
-                    <option value="i">inside (cytoplasmic)</option>
-                    <option value="o">outside (non-cytoplasmic)</option>
-                </select> (optional)
-        </td></tr>
-
-        <tr><td colspan=2><img src='{{STATIC_URL}}images/0.gif' width=1 height=5></td></tr>
-        <tr><td>C-term&nbsp;</td><td>
-                <select name="Cfix">
-                    <option value=""></option>
-                    <option value="i">Inside (cytoplasmic)</OPTION>
-                    <option value="o">Outside (non-cytoplasmic)</OPTION>
-                </select> (Optional)
-        </td></tr>
-        <tr><td colspan=2><img src='{{STATIC_URL}}images/0.gif' width=1 height=5></td></tr>
-        <tr><td>Other&nbsp;</td><td><input type="text" name="fix_str" size=41 maxlength=2048 title="fix_str"></input> (Optional)</td></tr>
-        <tr><td>&nbsp;</td><td><small>String of one or more entries with format [first]-[last]-[label]; where [first] is first residue and [last] is last residue in restrained range, and [label] is i (Inside), o (Outside) or M (Membrane). Example: 1-1-o;20-25-M;
-            </td></tr>
-        </table>
-    {% endcomment %}
-
         <script language="javascript">
 document.getElementById('options').style.display = 'none';
         </script>
@@ -64,8 +33,8 @@ document.getElementById('options').style.display = 'none';
     <br>
     <hr>
    <table cellspacing=0 cellpadding=5 border=0>
-     <tr><td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=400></td>
-       <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=50></td>
+     <tr><td><img src="{% static "/images/0.gif" %}" border=0 height=1 width=400></td>
+       <td><img src="{% static "/images/0.gif" %}" border=0 height=1 width=50></td>
      </tr>
      <tr><td> <h3>Reference</h3> </td></tr>
          {% include "pred/refbib.html" %}

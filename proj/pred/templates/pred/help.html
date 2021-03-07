@@ -1,5 +1,6 @@
 {% extends "pred/base_layout.html" %}
 
+    {% load static %}
 {%block content_right_panel %}
     {% if username %}
       {% include "pred/user_header.html" %}
@@ -7,12 +8,12 @@
   <h2>Help</h2>
   <table cellspacing=0 cellpadding=0 border=0>
     <tr>
-      <td class="Greylink"><a href="#1">1.&nbsp;Background<img src="{{STATIC_URL}}/images/0.gif" height=1 width=5 border=0><img src="{{STATIC_URL}}/images/arrow.png" border=0><img src="{{STATIC_URL}}/images/0.gif" height=1 width=25 border=0></a><td>
-      <td class="Greylink"><a href="#2">2.&nbsp;Summary<img src="{{STATIC_URL}}/images/0.gif" height=1 width=5 border=0><img src="{{STATIC_URL}}/images/arrow.png" border=0><img src="{{STATIC_URL}}/images/0.gif" height=1 width=25 border=0></a><td>
-      <td class="Greylink"><a href="#2">3.&nbsp;Usage<img src="{{STATIC_URL}}/images/0.gif" height=1 width=5 border=0><img src="{{STATIC_URL}}/images/arrow.png" border=0><img src="{{STATIC_URL}}/images/0.gif" height=1 width=25 border=0></a><td>
-      <td class="Greylink"><a href="#3">4.&nbsp;Output<img src="{{STATIC_URL}}/images/0.gif" height=1 width=5 border=0><img src="{{STATIC_URL}}/images/arrow.png" border=0><img src="{{STATIC_URL}}/images/0.gif" height=1 width=25 border=0></a><td>
-      <td class="Greylink"><a href="#4">5.&nbsp;References<img src="{{STATIC_URL}}/images/0.gif" height=1 width=5 border=0><img src="{{STATIC_URL}}/images/arrow.png" border=0><img src="{{STATIC_URL}}/images/0.gif" height=1 width=25 border=0></a><td>
-      <td class="Greylink"><a href="#5">6.&nbsp;Contact<img src="{{STATIC_URL}}/images/0.gif" height=1 width=5 border=0><img src="{{STATIC_URL}}/images/arrow.png" border=0><img src="{{STATIC_URL}}/images/0.gif" height=1 width=25 border=0></a><td>
+      <td class="Greylink"><a href="#1">1.&nbsp;Background<img src="{% static "/images/0.gif" %}" height=1 width=5 border=0><img src="{% static "/images/arrow.png" %}" border=0><img src="{% static "/images/0.gif" %}" height=1 width=25 border=0></a><td>
+      <td class="Greylink"><a href="#2">2.&nbsp;Summary<img src="{% static "/images/0.gif" %}" height=1 width=5 border=0><img src="{% static "/images/arrow.png" %}" border=0><img src="{% static "/images/0.gif" %}" height=1 width=25 border=0></a><td>
+      <td class="Greylink"><a href="#2">3.&nbsp;Usage<img src="{% static "/images/0.gif" %}" height=1 width=5 border=0><img src="{% static "/images/arrow.png" %}" border=0><img src="{% static "/images/0.gif" %}" height=1 width=25 border=0></a><td>
+      <td class="Greylink"><a href="#3">4.&nbsp;Output<img src="{% static "/images/0.gif" %}" height=1 width=5 border=0><img src="{% static "/images/arrow.png" %}" border=0><img src="{% static "/images/0.gif" %}" height=1 width=25 border=0></a><td>
+      <td class="Greylink"><a href="#4">5.&nbsp;References<img src="{% static "/images/0.gif" %}" height=1 width=5 border=0><img src="{% static "/images/arrow.png" %}" border=0><img src="{% static "/images/0.gif" %}" height=1 width=25 border=0></a><td>
+      <td class="Greylink"><a href="#5">6.&nbsp;Contact<img src="{% static "/images/0.gif" %}" height=1 width=5 border=0><img src="{% static "/images/arrow.png" %}" border=0><img src="{% static "/images/0.gif" %}" height=1 width=25 border=0></a><td>
       </tr>
   </table>
 
@@ -24,8 +25,8 @@
       <h3>1. Background</h3><br>
       <table cellspacing=0 cellpadding=0 border=0>
         <tr>
-          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=400></td>
-          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=50></td>
+          <td><img src="{% static "/images/0.gif" %}" border=0 height=1 width=400></td>
+          <td><img src="{% static "/images/0.gif" %}" border=0 height=1 width=50></td>
         </tr>
         <tr> <td>
             <p>
@@ -43,7 +44,7 @@
                 three or four amino acid residues. Zinc bound by three 
                 amino acid residues are often catalytic zinc and those 
                 bound by four are usually structural zinc. 
-                <img src="{{STATIC_URL}}images/zinc.2ohx.jpg" align="right"
+                <img src="{% static "images/zinc.2ohx.jpg" %}" align="right"
                 border=0 height=300>
                 Figure 1 shows a 
                 protein (alcohol dehydrogenases, PDBID 2ohx) with one 
@@ -82,8 +83,8 @@
       <h3>2. Summary</h3><br>
       <table cellspacing=0 cellpadding=0 border=0>
         <tr>
-          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=400></td>
-          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=50></td>
+          <td><img src="{% static "/images/0.gif" %}" border=0 height=1 width=400></td>
+          <td><img src="{% static "/images/0.gif" %}" border=0 height=1 width=50></td>
         </tr>
         <tr> <td>
             <p>
@@ -111,8 +112,8 @@
       <h3>3. Usage</h3><br>
       <table cellspacing=0 cellpadding=0 border=0>
         <tr>
-          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=400></td>
-          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=50></td>
+          <td><img src="{% static "/images/0.gif" %}" border=0 height=1 width=400></td>
+          <td><img src="{% static "/images/0.gif" %}" border=0 height=1 width=50></td>
         </tr>
         <tr><td>
             <p>
@@ -146,8 +147,8 @@
       <h3>4. Output</h3><br>
       <table cellspacing=0 cellpadding=0 border=0>
         <tr>
-          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=400></td>
-          <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=50></td></tr>
+          <td><img src="{% static "/images/0.gif" %}" border=0 height=1 width=400></td>
+          <td><img src="{% static "/images/0.gif" %}" border=0 height=1 width=50></td></tr>
         <tr><td>
                 The output for the example sequence can be found <a href="{{BASEURL}}result/example_1seq">here</a>
             <br><br>
@@ -159,8 +160,8 @@
 
     <h3>5. References</h3><br>
     <table cellspacing=0 cellpadding=5 border=0>
-      <tr><td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=400></td>
-        <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=50></td>
+      <tr><td><img src="{% static "/images/0.gif" %}" border=0 height=1 width=400></td>
+        <td><img src="{% static "/images/0.gif" %}" border=0 height=1 width=50></td>
       </tr>
          {% include "pred/refbib.html" %}
   </table>
@@ -171,8 +172,8 @@
     <h3>5. Contact</h3><br
     <table cellspacing=0 cellpadding=0 border=0>
       <tr>
-        <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=400></td>
-        <td><img src="{{STATIC_URL}}/images/0.gif" border=0 height=1 width=50></td>
+        <td><img src="{% static "/images/0.gif" %}" border=0 height=1 width=400></td>
+        <td><img src="{% static "/images/0.gif" %}" border=0 height=1 width=50></td>
       </tr>
       <tr><td>
           <b>Nanjiang Shu</b><br><br>

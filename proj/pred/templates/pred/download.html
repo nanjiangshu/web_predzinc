@@ -1,5 +1,6 @@
 {% extends "pred/base_layout.html" %}
 
+    {% load static %}
 {%block content_right_panel %}
     {% if username %}
       {% include "pred/user_header.html" %}
@@ -17,7 +18,7 @@
 
         You can also download the gzipped tarball of the package from here
          <a
-            href="{{STATIC_URL}}download/predzinc.tar.gz">predzinc.tar.gz</a>
+            href="{% static "download/predzinc.tar.gz" %}">predzinc.tar.gz</a>
         <br><br>
         </p>
       </td>
@@ -29,7 +30,7 @@
             <p style="margin-left:15px;">
             Data for evaluation of the method of the PredZinc paper (Shu et al., 2008 <a
             href="http://www.ncbi.nlm.nih.gov/pubmed/18245129">PubMed</a>) can
-        be found here: <a href="{{STATIC_URL}}download/benchmark.predzinc.zip">Original data</a>
+        be found here: <a href="{% static "download/benchmark.predzinc.zip" %}">Original data</a>
         </p>
             <br><br>
         </td>
@@ -41,7 +42,7 @@
             <p style="margin-left:15px;">
             All supplementary data for the PredZinc paper (Shu et al., 2008 <a
             href="http://www.ncbi.nlm.nih.gov/pubmed/18245129">PubMed</a>) can
-        be found here: <a href="{{STATIC_URL}}download/supplement.predzinc.zip">Supplementary data</a>
+        be found here: <a href="{% static "download/supplement.predzinc.zip" %}">Supplementary data</a>
             <br><br>
             </p>
         </td>

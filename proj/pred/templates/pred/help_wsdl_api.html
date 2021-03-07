@@ -1,5 +1,6 @@
 {% extends "pred/base_layout.html" %}
 
+    {% load static %}
 {%block content_right_panel %}
     {% if username %}
       {% include "pred/user_header.html" %}
@@ -11,7 +12,7 @@
     <table  cellspacing=1 cellpadding=5 border=0>
         <tr>
             <td><b>{{forloop.counter}}. {{lang}} script</b></td>
-            <td><a href="{{STATIC_URL}}download/script/{{basename}}">{{basename}}</a></td>
+            <td><a href="{% static "download/script/{{basename}}" %}">{{basename}}</a></td>
         </tr>
     </table>
     {%if usage %}
