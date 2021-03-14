@@ -12,13 +12,13 @@
         {%if resultfile %}
             <p>
                 Prediction in text file can be found in 
-                <a href="{% static "result/{{jobid}}/{{jobid}}/{{subdirname}}/{{resultfile}}" %}">{{resultfile}}</a>
+                <a href="{% static "" %}result/{{jobid}}/{{jobid}}/{{subdirname}}/{{resultfile}}">{{resultfile}}</a>
             </p>
         {%endif%}
 
         <p>
             The sequence file in FASTA format can be found in
-            <a href="{% static "result/{{jobid}}/{{jobid}}/{{subdirname}}/seq.fa" %}">seq.fa</a>
+            <a href="{% static "" %}result/{{jobid}}/{{jobid}}/{{subdirname}}/seq.fa">seq.fa</a>
         </p>
 
         {% include "pred/show_topoinfo.html"%}
