@@ -395,7 +395,7 @@ def RunQuery(request, query):#{{{
 
     # for single sequence job submitted via web interface, submit to local
     # queue
-    if query['numseq'] <= 10: 
+    if query['numseq'] <= 0: 
         query['numseq_this_user'] = 1
         SubmitQueryToLocalQueue(query, tmpdir, rstdir, isOnlyGetCache=True)
 
